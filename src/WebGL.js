@@ -9,10 +9,10 @@ var gGL = null;
 
 function initializeGL() {
     var canvas = document.getElementById("GLCanvas");
-            var gl = canvas.getContext("webgl") || 
+            gGL = canvas.getContext("webgl") || 
                     canvas.getContext("experimental-webgl");
-            if(gl !== null){
-                gl.clearColor(0.0, 0.8, 0.0, 1.0);
+            if(gGL !== null){
+                gGL.clearColor(0.0, 0.8, 0.0, 1.0);
             } else {
                 document.write("<br><b>WebGL is not supported!<b>");
             }
