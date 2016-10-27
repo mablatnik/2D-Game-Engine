@@ -21,3 +21,8 @@ function initializeGL() {
 function clearCanvas() {
     gGL.clear(gGL.COLOR_BUFFER_BIT);
 }
+
+function doGLDraw() {
+    initializeGL();
+    clearCanvas();
+}
