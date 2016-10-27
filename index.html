@@ -7,6 +7,7 @@ and open the template in the editor.
 <html>
     <head>
         <title>2D Game Engine</title>
+        <link rel="shortcut icon" href="">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -17,7 +18,23 @@ and open the template in the editor.
         </canvas>
         
         <!-- Load JavaScript -->
-        <script type="text/javascript" src="src/VertexBuffer.js"></script>
         <script type="text/javascript" src="src/WebGL.js"></script>
+        <script type="text/javascript" src="src/VertexBuffer.js"></script>
+        
+        <!-- GLSL shader -->
+        <script type="x-shader/x-vertex" id="VertexShader">
+            attribute vec3 aSquareVertexPosition;
+            void main(void) {
+                gl_Position = vec4(aSquareVertexPosition, 1.0);
+            }
+        </script>
+        
+        <!-- GLSL fragment shader -->
+        <script type="x-shader/x-fragment" id="FragmentShader">
+            void main(void) {
+                gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+            }
+        </script>
+        
     </body>
 </html>
