@@ -17,3 +17,7 @@ function initializeGL() {
                 document.write("<br><b>WebGL is not supported!<b>");
             }
 }
+
+function clearCanvas() {
+    gGL.clear(gGL.COLOR_BUFFER_BIT);
+}
