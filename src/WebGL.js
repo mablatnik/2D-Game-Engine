@@ -17,11 +17,18 @@ function initializeGL() {
             }
 }
 
-function clearCanvas() {
+function drawSquare() {
+    // clear canvas
     gGL.clear(gGL.COLOR_BUFFER_BIT);
+    // active shader program
+    gGL.useProgram(gSimpleShader);
+    // enable vertex shader attributes
+    gGL.enableVertexAttribArray(gShaderVertexPositionAttribute);
+    // draw array
+    gGL.drawArrays(gGL.TRIANGLE_STRIP, 0,4);
 }
 
 function doGLDraw() {
     initializeGL();
-    clearCanvas();
+    drawSquare();
 }
