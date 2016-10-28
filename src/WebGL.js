@@ -8,6 +8,10 @@ function initializeGL() {
                     canvas.getContext("experimental-webgl");
             if(gGL !== null){
                 gGL.clearColor(0.0, 0.8, 0.0, 1.0);
+                // initialize the vertex buffer
+                initSquareBuffer();
+                // load and compile shaders
+                initSimpleShader("VertexShader", "FragmentShader");
             } else {
                 document.write("<br><b>WebGL is not supported!<b>");
             }

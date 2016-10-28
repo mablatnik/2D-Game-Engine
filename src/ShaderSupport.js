@@ -8,7 +8,7 @@ function loadAndCompileShader(id, shaderType) {
     shaderSource = shaderText.firstChild.textContent;
     compiledShader = gGL.createShader(shaderType);
     gGL.shaderSource(compiledShader, shaderSource);
-    gGL.compiledShader(compiledShader);
+    gGL.compileShader(compiledShader);
     
     if (!gGL.getShaderParameter(compiledShader, gGL.COMPILE_STATUS))
     {

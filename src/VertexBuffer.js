@@ -3,6 +3,7 @@
 var gSquareVertexBuffer = null;
 
 function initSquareBuffer() {
+    // Create buffers of data
     var verticesOfSquare = [
         0.5, 0.5, 0.0,
         -0.5, 0.5, 0.0,
