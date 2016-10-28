@@ -29,6 +29,8 @@ function drawSquare() {
 }
 
 function doGLDraw() {
+    // binds gGL context to WebGL functionality
     initializeGL();
+    // clears the GL area and draws square
     drawSquare();
 }

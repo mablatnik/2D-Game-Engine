@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body onload="doGLDraw();">
-        <!-- Create canvas -->
+        <!-- Create HTML5 canvas -->
         <canvas id="GLCanvas" width="640" height="480">
             Your browser does not support HTML5 canvas.
         </canvas>
@@ -17,7 +17,7 @@
         <script type="text/javascript" src="src/VertexBuffer.js"></script>
         <script type="text/javascript" src="src/ShaderSupport.js"></script>
         
-        <!-- GLSL shader -->
+        <!-- GLSL shader written in GLSL -->
         <script type="x-shader/x-vertex" id="VertexShader">
             attribute vec3 aSquareVertexPosition;
             void main(void) {
@@ -25,7 +25,7 @@
             }
         </script>
         
-        <!-- GLSL fragment shader -->
+        <!-- GLSL fragment shader written in GLSL -->
         <script type="x-shader/x-fragment" id="FragmentShader">
             void main(void) {
                 gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
