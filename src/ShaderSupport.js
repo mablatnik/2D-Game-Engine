@@ -19,4 +19,20 @@ function loadAndCompileShader(id, shaderType) {
     return compiledShader;
 }
 
-
+function initSimpleShader(vertexShaderID, fragmentShaderID) {
+    var vertexShader = loadAndCompileShader(vertexShaderID, gGL.VERTEX_SHADER);
+    var fragmentShader = loadAndCompileShader(fragmentShaderID, gGL.FRAGMENT_SHADER);
+    
+    gSimpleShader = gGL.createProgram();
+    gGL.attachShader(gSimpleShader, vertexShader);
+    gGL.attachShader(gSimpleShader, fragmentShader);
+    gGL.linkProgram(gSimpleShader);
+    
+    if(!gGL.getProgramParameter(gSimpleShader, gGL.LINK_STATUS))
+        alert("Error linking shader");
+    
+    gShaderVertexPositionAttribute = gGL.getAttribLocation(gSimpleShader, "aSquareVertexPosition");
+    
+    gGL.bindBuffer(gGL.ARRAY_BUFFER, gSquareVertexBuffer);
+    gGL.vertexAttribPointer(gShaderVertexPositionAttribute, 3, gGL.FLOAT, false, 0, 0);
+}
