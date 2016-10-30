@@ -21,9 +21,16 @@ gEngine.Core = (function() {
         // initialize the VertexBuffer
         gEnging.VertexBuffer.initialize();
     };
+    // clears the draw area and draws one square
+    var clearCanvas = function(color) {
+        mGL.clearColor(color[0],color[1],color[2],color[3]);
+        mGL.clear(mGL.COLOR_BUFFER_BIT);
+    }
     // contains functions and variables that will be accessible
     var mPublic = {
-        getGL: getGL
+        getGL: getGL,
+        initializeWebGL: initializeWebGL,
+        clearCanvas: clearCanvas
     };
     return mPublic;
 }());
