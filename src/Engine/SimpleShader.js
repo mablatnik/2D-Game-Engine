@@ -50,3 +50,10 @@ SimpleShader.prototype._loadAndCompileShader = function(id, shaderType) {
     }
     return compiledShader;
 };
+
+// activate shader for drawing
+SimpleShader.prototype.activateShader = function() {
+    var gl = gEngine.Core.getGL();
+    gl.useProgram(this.mCompiledShader);
+    gl.enableVertesAttribArray(this.mShaderVertexPositionAttribute);
+};
