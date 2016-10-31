@@ -36,9 +36,25 @@ function SimpleShader(vertexShaderID, fragmentShaderID) {
 SimpleShader.prototype._loadAndCompileShader = function(filePath, shaderType) {
     var shaderText, shaderSource, compiledShader;
     var gl = gEngine.Core.getGL();
-    // get shader source from index
-    shaderText = document.getElementById(id);
-    shaderSource = shaderText.firstChild.textContent;
+    // request shader source for GLSL file
+    xmlReq = new XMLHttpRequest();
+    
+    xmlReq.open('GET', filePath, false);
+    
+    try {
+        xmlReq.send();
+    } catch(error) {
+        alert("Failed to load shader:" + filePath);
+        return null;
+    }
+    
+    shaderSource = xmlReq.responseText;
+    
+    if(shaderSource === null) {
+        alert("WARNING: Loading of:" + filePath + "Failed!");
+        return null;
+    }
+    
     // create the shader based on shader type
     compiledShader = gl.createShader(shaderType);
     // compile the shader

@@ -18,20 +18,5 @@
         <script type="text/javascript" src="src/Engine/SimpleShader.js"></script>
         <script type="text/javascript" src="src/MyGame/MyGame.js"></script>
         
-        <!-- GLSL shader written in GLSL -->
-        <script type="x-shader/x-vertex" id="VertexShader">
-            attribute vec3 aSquareVertexPosition;
-            void main(void) {
-                gl_Position = vec4(aSquareVertexPosition, 1.0);
-            }
-        </script>
-        
-        <!-- GLSL fragment shader written in GLSL -->
-        <script type="x-shader/x-fragment" id="FragmentShader">
-            void main(void) {
-                gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-            }
-        </script>
-        
     </body>
 </html>
