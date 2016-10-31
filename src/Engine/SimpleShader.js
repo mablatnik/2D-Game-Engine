@@ -57,3 +57,5 @@ SimpleShader.prototype.activateShader = function() {
     gl.useProgram(this.mCompiledShader);
     gl.enableVertesAttribArray(this.mShaderVertexPositionAttribute);
 };
+
+SimpleShader.prototype.getShader = function() {return this.mCompiledShader;};
