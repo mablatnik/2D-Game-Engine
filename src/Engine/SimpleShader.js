@@ -30,10 +30,10 @@ function SimpleShader(vertexShaderID, fragmentShaderID) {
     0: offsets to the first element
     */
     gl.vertexAttribPointer(this.mShaderVertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
-    }
+};
 
 // performs loading and compiling functionality
-SimpleShader.prototype._loadAndCompileShader = function(id, shaderType) {
+SimpleShader.prototype._loadAndCompileShader = function(filePath, shaderType) {
     var shaderText, shaderSource, compiledShader;
     var gl = gEngine.Core.getGL();
     // get shader source from index
