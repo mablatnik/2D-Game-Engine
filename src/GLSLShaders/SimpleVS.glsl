@@ -1,5 +1,7 @@
-attribute vec3 aSquareVertexPosition;
+precision mediump float;
+
+uniform vec4 uPixelColor;
 
 void main(void) {
-    gl_Position = vec4(aSquareVertexPosition, 1.0);
+    gl_FragColor = uPixelColor;
 }
