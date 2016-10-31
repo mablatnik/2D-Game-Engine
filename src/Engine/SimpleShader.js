@@ -30,6 +30,23 @@ function SimpleShader(vertexShaderID, fragmentShaderID) {
     0: offsets to the first element
     */
     gl.vertexAttribPointer(this.mShaderVertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
-}
+    }
 
-
+// performs loading and compiling functionality
+SimpleShader.prototype._loadAndCompileShader = function(id, shaderType) {
+    var shaderText, shaderSource, compiledShader;
+    var gl = gEngine.Core.getGL();
+    // get shader source from index
+    shaderText = document.getElementById(id);
+    shaderSource = shaderText.firstChild.textContent;
+    // create the shader based on shader type
+    compiledShader = gl.createShader(shaderType);
+    // compile the shader
+    gl.shaderSource(compiledShader, shaderSource);
+    gl.compileShader(compiledShader);
+    // check for errors and log info
+    if(!gl.getShaderParameter(compiledShader, gl.COMPILE_STATUS)){
+        alert("A shader compiling error occurred:" + gl.getShaderInfoLog(compiledShader));
+    }
+    return compiledShader;
+};
