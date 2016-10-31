@@ -6,7 +6,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-    <body onload="doGLDraw();">
+    <body onload="new MyGame('GLCanvas');">
         <!-- Create HTML5 canvas -->
         <canvas id="GLCanvas" width="640" height="480">
             Your browser does not support HTML5 canvas.
@@ -16,6 +16,7 @@
         <script type="text/javascript" src="src/Engine/Engine_Core.js"></script>
         <script type="text/javascript" src="src/Engine/Engine_VertexBuffer.js"></script>
         <script type="text/javascript" src="src/Engine/SimpleShader.js"></script>
+        <script type="text/javascript" src="src/MyGame/MyGame.js"></script>
         
         <!-- GLSL shader written in GLSL -->
         <script type="x-shader/x-vertex" id="VertexShader">

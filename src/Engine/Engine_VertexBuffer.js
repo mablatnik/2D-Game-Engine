@@ -21,7 +21,7 @@ gEngine.VertexBuffer = (function() {
         // activate buffer
         gl.bindBuffer(gl.ARRAY_BUFFER, mSquareVertexBuffer);
         // load verticies into the vertexBuffer
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(verticesOfSquare), gGL.STATIC_DRAW);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(verticesOfSquare), gl.STATIC_DRAW);
     };
     var mPublic = {
         initialize: initialize,

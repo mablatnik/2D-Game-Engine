@@ -1,4 +1,3 @@
-
 "use strict";
 
 // initialize the variable and ensure it is not redefined
@@ -14,18 +13,18 @@ gEngine.Core = (function() {
         var canvas = document.getElementById(htmlCanvasID);
         // get WebGL and bind to canvas
         mGL = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-        if(mGL == null) {
+        if(mGL === null) {
             document.write("<br><b>WebGL is not supported!</b>");
             return;
         }
         // initialize the VertexBuffer
-        gEnging.VertexBuffer.initialize();
+        gEngine.VertexBuffer.initialize();
     };
     // clears the draw area and draws one square
     var clearCanvas = function(color) {
-        mGL.clearColor(color[0],color[1],color[2],color[3]);
+        mGL.clearColor(color[0], color[1], color[2], color[3]);
         mGL.clear(mGL.COLOR_BUFFER_BIT);
-    }
+    };
     // contains functions and variables that will be accessible
     var mPublic = {
         getGL: getGL,
