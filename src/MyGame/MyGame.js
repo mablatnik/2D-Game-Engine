@@ -11,8 +11,20 @@ function MyGame(htmlCanvasID) {
     // draw process
     // clear the canvas
     gEngine.Core.clearCanvas([0,0.8,0,1]);
-    // draw renderable objects
-    this.mWhiteSq.draw();
-    this.mRedSq.draw();
-
+    // create new identity transform operation
+    var xform = mat4.create();
+    // compute the white square transform
+    mat4.translate(xform, xform, vec3.fromValues(-0.25,0.25,0.0));
+    mat4.rotateZ(xform,xform,0.2);
+    mat4.scale(xform,xform,vec3.fromValues(1.2,1.2,1.0));
+    // draw white square
+    this.mWhiteSq.draw(xform);
+    
+    // compute the red square transform
+    mat4.identity(xform);
+    mat4.translate(xform, xform, vec3.fromValues(0.25,0.25,0.0));
+    mat4.rotateZ(xform,xform,-0.785);
+    mat4.scale(xform,xform,vec3.fromValues(0.4,0.4,1.0));
+    // draw red square
+    this.mRedSq.draw(xform);
 };
