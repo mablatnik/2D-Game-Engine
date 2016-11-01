@@ -3,6 +3,7 @@ function SimpleShader(vertexShaderID, fragmentShaderID) {
     this.mCompiledShader = null;
     this.mShaderVertexPositionAttribute = null;
     this.mPixelColor = null;
+    this.mModelTransform = null;
     
     var gl = gEngine.Core.getGL();
     // start of constructor code
@@ -20,8 +21,9 @@ function SimpleShader(vertexShaderID, fragmentShaderID) {
     }
     // get a reference to the aSquareVertexPosition attribute
     this.mShaderVertexPositionAttribute = gl.getAttribLocation(this.mCompiledShader, "aSquareVertexPosition");
-    // get a reference to the PixelColor uniform in the fragment shader
+    // get a reference to the PixelColor uniform variables
     this.mPixelColor = gl.getUniformLocation(this.mCompiledShader, "uPixelColor");
+    this.mModelTransform = gl.getUniformLocation(this.mCompiledShader, "uModelTransform");
     // activate vertex buffer loaded in Engine.Core
     gl.bindBuffer(gl.ARRAY_BUFFER, gEngine.VertexBuffer.getGLVertexRef());
     /*
@@ -33,9 +35,6 @@ function SimpleShader(vertexShaderID, fragmentShaderID) {
     0: offsets to the first element
     */
     gl.vertexAttribPointer(this.mShaderVertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
-    
-    // get a reference to the uniform variable
-    this.mPixelColor = gl.getUniformLocation(this.mCompiledShader, "uPixelColor");
 };
 
 // performs loading and compiling functionality
@@ -82,3 +81,8 @@ SimpleShader.prototype.activateShader = function(pixelColor) {
 };
 
 SimpleShader.prototype.getShader = function() {return this.mCompiledShader;};
+
+SimpleShader.prototype.loadObjectTransform = function(modelTransform) {
+    var gl = gEngine.Core.getGL();
+    gl.uniformMatrix4fv(this.mModelTransform, false, modelTransform);
+};
