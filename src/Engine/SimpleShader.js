@@ -33,6 +33,9 @@ function SimpleShader(vertexShaderID, fragmentShaderID) {
     0: offsets to the first element
     */
     gl.vertexAttribPointer(this.mShaderVertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
+    
+    // get a reference to the uniform variable
+    this.mPixelColor = gl.getUniformLocation(this.mCompiledShader, "uPixelColor");
 };
 
 // performs loading and compiling functionality
