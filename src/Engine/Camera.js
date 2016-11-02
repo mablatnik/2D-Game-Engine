@@ -30,7 +30,43 @@ Camera.prototype.getVPMatrix = function() { return this.mVPMatrix; };
 // initializes the camera to begin drawing
 Camera.prototype.setupViewProjection = function() {
     var gl = gEngine.Core.getGL();
-    // config viewport
+    
+    // set up viewport to be drawn
+    gl.viewport(this.mViewport[0], // x position bottom-left corner
+                this.mVietwport[1], // y position bottom-left corner
+                this.mVietwport[2], // width of area
+                this.mVietwport[3]); // height of area
+    // set up corresponding scissor area
+    gl.scissor(this.mViewport[0], // x position bottom-left corner
+                this.mVietwport[1], // y position bottom-left corner
+                this.mVietwport[2], // width of area
+                this.mVietwport[3]); // height of area
+    // set the color to be clear to black
+    gl.clearColor(this.mBgColor[0], this.mBgColor[1]. this.mBgColor[2], this.mBgColor[3]);
+    // enable and clear the scissor area
+    gl.enable(gl.SCISSOR_TEST);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.disable(gl.SCISSOR_TEST);
     
     // define the view-projection matrix
+    mat4.lookAt(this.mViewMatrix,
+        [this.mWCCenter[0], this.mWCCenter[1],10], // WC center
+        [this.mWCCenter[0], this.mWCCenter[1],0],
+        [0,1,0]); // orientation
+        
+    // define the projection matrix
+    var halfWCWidth = 0.5*this.mWCWidth;
+    // WCHeight = WCWidth*viewportHeight/viewportWidth
+    var halfWCHeight = halfWCWidth*this.mViewport[3]/this.mViewport[2];
+    
+    mat4.ortho(this.mProjMatrix,
+        -halfWCWidth, // distace to left of WC
+        halfWCWidth, // distance to right of WC
+        -halfWCHeight, // distance to bottom of WC
+        halfWCHeight, // distance to top of WC
+        this.mNearPlane, // z-distance to near plane
+        this.mFarPlane); // z-distance to faar plane
+        
+   // concatenate view and project matrices
+   mat4.multiply(this.mVPMatrix, this.mProjMatrix, this.mViewMatrix);
 };
