@@ -4,6 +4,7 @@ function SimpleShader(vertexShaderID, fragmentShaderID) {
     this.mShaderVertexPositionAttribute = null;
     this.mPixelColor = null;
     this.mModelTransform = null;
+    this.mViewProjTransform = null;
     
     var gl = gEngine.Core.getGL();
     // start of constructor code
@@ -22,8 +23,10 @@ function SimpleShader(vertexShaderID, fragmentShaderID) {
     // get a reference to the aSquareVertexPosition attribute
     this.mShaderVertexPositionAttribute = gl.getAttribLocation(this.mCompiledShader, "aSquareVertexPosition");
     // get a reference to the PixelColor uniform variables
-    this.mPixelColor = gl.getUniformLocation(this.mCompiledShader, "uPixelColor");
     this.mModelTransform = gl.getUniformLocation(this.mCompiledShader, "uModelTransform");
+    this.mPixelColor = gl.getUniformLocation(this.mCompiledShader, "uPixelColor");
+    this.mViewProjTransform = gl.getUniformLocation(this.mCompiledShader, "uViewProjTransform");
+    
     // activate vertex buffer loaded in Engine.Core
     gl.bindBuffer(gl.ARRAY_BUFFER, gEngine.VertexBuffer.getGLVertexRef());
     /*
@@ -73,9 +76,10 @@ SimpleShader.prototype._loadAndCompileShader = function(filePath, shaderType) {
 };
 
 // activate shader for drawing
-SimpleShader.prototype.activateShader = function(pixelColor) {
+SimpleShader.prototype.activateShader = function(vpMatrix) {
     var gl = gEngine.Core.getGL();
     gl.useProgram(this.mCompiledShader);
+    gl.uniformMatrix4fv(this.mViewProjTransform, false, vpMatrix);
     gl.enableVertexAttribArray(this.mShaderVertexPositionAttribute);
     gl.uniform4fv(this.mPixelColor, pixelColor);
 };
