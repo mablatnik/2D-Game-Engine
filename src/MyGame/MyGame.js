@@ -71,6 +71,5 @@ function MyGame(htmlCanvasID) {
     
     // bottom left
     this.mBLSq.getXform().setPosition(10,55);
-    this.mBLSq.draw(vpMatrix);
-    
+    this.mBLSq.draw(vpMatrix);   
 };
