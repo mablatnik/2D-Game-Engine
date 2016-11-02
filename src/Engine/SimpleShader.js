@@ -76,7 +76,7 @@ SimpleShader.prototype._loadAndCompileShader = function(filePath, shaderType) {
 };
 
 // activate shader for drawing
-SimpleShader.prototype.activateShader = function(vpMatrix) {
+SimpleShader.prototype.activateShader = function (pixelColor, vpMatrix) {
     var gl = gEngine.Core.getGL();
     gl.useProgram(this.mCompiledShader);
     gl.uniformMatrix4fv(this.mViewProjTransform, false, vpMatrix);
