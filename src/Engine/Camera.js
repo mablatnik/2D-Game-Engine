@@ -14,3 +14,23 @@ function Camera(wcCenter, wcWidth, viewportArray) {
     this.mBgColor = [0.8, 0.8, 0.8, 1];
 }
 
+Camera.prototype.setWCCenter = function(xPos, yPos) {
+    this.mWCCenter[0] = xPos;
+    this.mWCCenter[1] = yPos;
+};
+
+Camera.prototype.getWCCenter = function () { return this.mWCCenter; };
+Camera.prototype.setWCCenter = function(width) { this.mWCWidth = width; };
+Camera.prototype.setViewport = function(viewportArray) { this.mViewport = viewportArray; };
+Camera.prototype.getViewport = function() { return this.mViewport; };
+Camera.prototype.setBackgroundColor = function(newColor) { this.mBgColor = newColor; };
+Camera.prototype.getBackgroundColor = function() { return this.mBgColor; };
+Camera.prototype.getVPMatrix = function() { return this.mVPMatrix; };
+
+// initializes the camera to begin drawing
+Camera.prototype.setupViewProjection = function() {
+    var gl = gEngine.Core.getGL();
+    // config viewport
+    
+    // define the view-projection matrix
+};
