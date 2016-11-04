@@ -5,11 +5,21 @@ function MyGame(htmlCanvasID) {
     this.mConstColorShader = null;
     
     // variables for the squares
-    this.mBlueSq = null;
+    this.mWhiteSq = null;
     this.mRedSq = null;
+    
+    // The camera to view the scene
+    this.mCamera = null;
     
     // initialize webGL context and VertexBuffer
     gEngine.Core.initializeWebGL(htmlCanvasID);
+    
+    // initialize the game
+    this.initialize();
+}
+
+MyGame.prototype.initialize = function () {
+    
     
     // seetup the camera
     this.mCamera = new Camera(
@@ -17,6 +27,7 @@ function MyGame(htmlCanvasID) {
             20,
             [20,40,600,300]
             );
+    this.mCamera.setBackgroundColor([0.8,0.8,0.8,1]);
    
     // create the shader
     this.mConstColorShader = new SimpleShader(
@@ -24,18 +35,23 @@ function MyGame(htmlCanvasID) {
         "src/GLSLShaders/SimpleFS.glsl");
     
     // create the renderable objects
-    this.mBlueSq = new Renderable(this.mConstColorShader);
-    this.mBlueSq.setColor([0.25, 0.25, 0.95, 1]);
+    this.mWhiteSq = new Renderable(this.mConstColorShader);
+    this.mWhiteSq.setColor([1,1,1,1]);
     this.mRedSq = new Renderable(this.mConstColorShader);
-    this.mRedSq.setColor([1,0.25,0.25,1]);
-    this.mTLSq = new Renderable(this.mConstColorShader);
-    this.mTLSq.setColor([0.9, 0.1, 0.1, 1]);
-    this.mTRSq = new Renderable(this.mConstColorShader);
-    this.mTRSq.setColor([0.1, 0.9, 0.1, 1]);
-    this.mBRSq = new Renderable(this.mConstColorShader);
-    this.mBRSq.setColor([0.1, 0.1, 0.9, 1]);
-    this.mBLSq = new Renderable(this.mConstColorShader);
-    this.mBLSq.setColor([0.1,0.1,0.1,1]);
+    this.mRedSq.setColor([1,0,0,1]);
+    
+    // initialize the whiteSq: centered, 5x5, rotated
+    this.mWhiteSq.getXform().setPosition(20,60);
+    this.mWhiteSq.getXform().setRotationInRad(0.2);
+    this.mWhiteSq.getXform().setSize(5,5);
+    
+    // initialize the redSq: centered 2x2
+    this.mRedSq.getXform().setPosition(20,60);
+    this.mRedSq.getXform().setSize(2,2);
+    
+    // start game loop
+    gEngine.GameLoop.start(this);
+    };
     
     // draw process
     // clear the canvas

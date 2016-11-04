@@ -50,7 +50,8 @@ gEngine.GameLoop = (function() {
     };
     
     var mPublic = {
-        
+        start: start
     };
+    
     return mPublic;
 }());
