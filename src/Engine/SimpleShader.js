@@ -1,3 +1,5 @@
+"Use strict";
+
 function SimpleShader(vertexShaderID, fragmentShaderID) {
     // instance variables
     this.mCompiledShader = null;
@@ -21,11 +23,8 @@ function SimpleShader(vertexShaderID, fragmentShaderID) {
         return null;
     }
     // get a reference to the aSquareVertexPosition attribute
-    this.mShaderVertexPositionAttribute = gl.getAttribLocation(this.mCompiledShader, "aSquareVertexPosition");
-    // get a reference to the PixelColor uniform variables
-    this.mModelTransform = gl.getUniformLocation(this.mCompiledShader, "uModelTransform");
-    this.mPixelColor = gl.getUniformLocation(this.mCompiledShader, "uPixelColor");
-    this.mViewProjTransform = gl.getUniformLocation(this.mCompiledShader, "uViewProjTransform");
+    this.mShaderVertexPositionAttribute = gl.getAttribLocation(
+        this.mCompiledShader, "aSquareVertexPosition");
     
     // activate vertex buffer loaded in Engine.Core
     gl.bindBuffer(gl.ARRAY_BUFFER, gEngine.VertexBuffer.getGLVertexRef());
@@ -38,28 +37,49 @@ function SimpleShader(vertexShaderID, fragmentShaderID) {
     0: offsets to the first element
     */
     gl.vertexAttribPointer(this.mShaderVertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
+    
+    // get a reference to the uniform variables
+    this.mPixelColor = gl.getUniformLocation(this.mCompiledShader, "uPixelColor");
+    this.mModelTransform = gl.getUniformLocation(this.mCompiledShader, "uModelTransform");
+    this.mViewProjTransform = gl.getUniformLocation(this.mCompiledShader, "uViewProjTransform");
+}
+
+// access the compiled shader
+SimpleShader.prototype.getShader = function() {return this.mCompiledShader;};
+
+// activate shader for drawing
+SimpleShader.prototype.activateShader = function (pixelColor, vpMatrix) {
+    var gl = gEngine.Core.getGL();
+    gl.useProgram(this.mCompiledShader);
+    gl.uniformMatrix4fv(this.mViewProjTransform, false, vpMatrix);
+    gl.enableVertexAttribArray(this.mShaderVertexPositionAttribute);
+    gl.uniform4fv(this.mPixelColor, pixelColor);
+};
+
+// loads model transforms for each object
+SimpleShader.prototype.loadObjectTransform = function(modelTransform) {
+    var gl = gEngine.Core.getGL();
+    gl.uniformMatrix4fv(this.mModelTransform, false, modelTransform);
 };
 
 // performs loading and compiling functionality
 SimpleShader.prototype._loadAndCompileShader = function(filePath, shaderType) {
-    var shaderText, shaderSource, compiledShader;
     var gl = gEngine.Core.getGL();
+    var xmlReq, shaderSource = null, compiledShader = null;
     // request shader source for GLSL file
     xmlReq = new XMLHttpRequest();
-    
     xmlReq.open('GET', filePath, false);
-    
     try {
         xmlReq.send();
-    } catch(error) {
-        alert("Failed to load shader:" + filePath);
+    } catch (error) {
+        alert("Failed to load shader: " + filePath + " [Hint: you cannot double click index.html to run this project. " +
+                "The index.html file must be loaded by a web-server.]");
         return null;
     }
-    
     shaderSource = xmlReq.responseText;
-    
-    if(shaderSource === null) {
-        alert("WARNING: Loading of:" + filePath + "Failed!");
+
+    if (shaderSource === null) {
+        alert("WARNING: Loading of:" + filePath + " Failed!");
         return null;
     }
     
@@ -73,20 +93,4 @@ SimpleShader.prototype._loadAndCompileShader = function(filePath, shaderType) {
         alert("A shader compiling error occurred:" + gl.getShaderInfoLog(compiledShader));
     }
     return compiledShader;
-};
-
-// activate shader for drawing
-SimpleShader.prototype.activateShader = function (pixelColor, vpMatrix) {
-    var gl = gEngine.Core.getGL();
-    gl.useProgram(this.mCompiledShader);
-    gl.uniformMatrix4fv(this.mViewProjTransform, false, vpMatrix);
-    gl.enableVertexAttribArray(this.mShaderVertexPositionAttribute);
-    gl.uniform4fv(this.mPixelColor, pixelColor);
-};
-
-SimpleShader.prototype.getShader = function() {return this.mCompiledShader;};
-
-SimpleShader.prototype.loadObjectTransform = function(modelTransform) {
-    var gl = gEngine.Core.getGL();
-    gl.uniformMatrix4fv(this.mModelTransform, false, modelTransform);
 };

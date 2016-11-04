@@ -1,3 +1,5 @@
+"use strict";
+
 // constructor for camera
 function Camera(wcCenter, wcWidth, viewportArray) {
     // WC and viewport position and size
@@ -6,10 +8,12 @@ function Camera(wcCenter, wcWidth, viewportArray) {
     this.mViewport = viewportArray; //[x,y,width,height]
     this.mNearPlane = 0;
     this.mFarPlane = 1000;
+    
     // transformation matrices
     this.mViewMatrix = mat4.create();
     this.mProjMatrix = mat4.create();
     this.mVPMatrix = mat4.create();
+    
     // background color
     this.mBgColor = [0.8, 0.8, 0.8, 1];
 }
@@ -18,9 +22,8 @@ Camera.prototype.setWCCenter = function(xPos, yPos) {
     this.mWCCenter[0] = xPos;
     this.mWCCenter[1] = yPos;
 };
-
 Camera.prototype.getWCCenter = function () { return this.mWCCenter; };
-Camera.prototype.setWCCenter = function(width) { this.mWCWidth = width; };
+Camera.prototype.setWCWidth = function(width) { this.mWCWidth = width; };
 Camera.prototype.setViewport = function(viewportArray) { this.mViewport = viewportArray; };
 Camera.prototype.getViewport = function() { return this.mViewport; };
 Camera.prototype.setBackgroundColor = function(newColor) { this.mBgColor = newColor; };
@@ -33,16 +36,16 @@ Camera.prototype.setupViewProjection = function() {
     
     // set up viewport to be drawn
     gl.viewport(this.mViewport[0], // x position bottom-left corner
-                this.mVietwport[1], // y position bottom-left corner
-                this.mVietwport[2], // width of area
-                this.mVietwport[3]); // height of area
+                this.mViewport[1], // y position bottom-left corner
+                this.mViewport[2], // width of area
+                this.mViewport[3]); // height of area
     // set up corresponding scissor area
     gl.scissor(this.mViewport[0], // x position bottom-left corner
-                this.mVietwport[1], // y position bottom-left corner
-                this.mVietwport[2], // width of area
-                this.mVietwport[3]); // height of area
+                this.mViewport[1], // y position bottom-left corner
+                this.mViewport[2], // width of area
+                this.mViewport[3]); // height of area
     // set the color to be clear to black
-    gl.clearColor(this.mBgColor[0], this.mBgColor[1]. this.mBgColor[2], this.mBgColor[3]);
+    gl.clearColor(this.mBgColor[0], this.mBgColor[1], this.mBgColor[2], this.mBgColor[3]);
     // enable and clear the scissor area
     gl.enable(gl.SCISSOR_TEST);
     gl.clear(gl.COLOR_BUFFER_BIT);
@@ -57,8 +60,7 @@ Camera.prototype.setupViewProjection = function() {
     // define the projection matrix
     var halfWCWidth = 0.5*this.mWCWidth;
     // WCHeight = WCWidth*viewportHeight/viewportWidth
-    var halfWCHeight = halfWCWidth*this.mViewport[3]/this.mViewport[2];
-    
+    var halfWCHeight = halfWCWidth * this.mViewport[3] / this.mViewport[2];
     mat4.ortho(this.mProjMatrix,
         -halfWCWidth, // distace to left of WC
         halfWCWidth, // distance to right of WC

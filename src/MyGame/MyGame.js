@@ -1,10 +1,27 @@
+"use strict";
+
 function MyGame(htmlCanvasID) {
+    // variables for the shader
+    this.mConstColorShader = null;
+    
+    // variables for the squares
+    this.mBlueSq = null;
+    this.mRedSq = null;
+    
     // initialize webGL context and VertexBuffer
     gEngine.Core.initializeWebGL(htmlCanvasID);
-    var gl = gEngine.Core.getGL();
     
+    // seetup the camera
+    this.mCamera = new Camera(
+            vec2.fromValues(20,60),
+            20,
+            [20,40,600,300]
+            );
+   
     // create the shader
-    this.mConstColorShader = new SimpleShader("src/GLSLShaders/SimpleVS.glsl", "src/GLSLShaders/SimpleFS.glsl");
+    this.mConstColorShader = new SimpleShader(
+        "src/GLSLShaders/SimpleVS.glsl", 
+        "src/GLSLShaders/SimpleFS.glsl");
     
     // create the renderable objects
     this.mBlueSq = new Renderable(this.mConstColorShader);
@@ -23,28 +40,10 @@ function MyGame(htmlCanvasID) {
     // draw process
     // clear the canvas
     gEngine.Core.clearCanvas([0.9,0.9,0.9,1]);
-    // set up the viewport
-    gl.viewport(20, 40, 600, 300);
-    // set up the scissor area to limit clear area
-    gl.scissor(20, 40, 600, 300);
-    // enable the scissor area, clear, and then disable scissor area
-    gl.enable(gl.SCISSOR_TEST);
-    gEngine.Core.clearCanvas([0,8, 0.8, 0.8, 1.0]);
-    gl.disable(gl.SCISSOR_TEST);
     
-    // set up view and projection matrices
-    var viewMatrix = mat4.create();
-    var projMatrix = mat4.create();
-    // define the view matrix
-    mat4.lookAt(viewMatrix, 
-        [20,60,100], // camera position
-        [20, 60, 0], // view position
-        [0,1,0]); // orientation
-    // define the matrix projection(left, right, bottom, top, z near, z far)
-    mat4.ortho(projMatrix, -10, 10, -5, 5, 0, 1000);
-    // concatenate to the form the View-Projection
-    var vpMatrix = mat4.create();
-    mat4.multiply(vpMatrix, projMatrix, viewMatrix);
+    // Starts drawing and activating the camera
+    this.mCamera.setupViewProjection();
+    var vpMatrix = this.mCamera.getVPMatrix();
     
     // draw the blue square: center blue, slightly rotated
     this.mBlueSq.getXform().setPosition(20,60);
