@@ -51,7 +51,23 @@ MyGame.prototype.initialize = function () {
     
     // start game loop
     gEngine.GameLoop.start(this);
-    };
+};
+
+// update function, updates the application state
+MyGame.prototype.update = function () {
+    // move the white square
+    var whiteXform = this.mWhiteSq.getXform();
+    var deltaX = 0.05;
+    if(whiteXform.getXPos() > 30)
+        whiteXform.setPosition(10,60);
+    whiteXform.incXPosBy(deltaX);
+    whiteXform.incRotationByDegree(1);
+    // pulse the red square
+    var redXform = this.mRedSq.getXform();
+    if(redXform.getWidth() > 5)
+        redXform.setSize(2,2);
+    redXform.incSizeBy(0.05);
+};
     
     // draw process
     // clear the canvas
