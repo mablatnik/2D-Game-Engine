@@ -38,6 +38,17 @@ gEngine.GameLoop = (function() {
         }
     };
     
+    var start = function(myGame) {
+        mMyGame = myGame;
+        // reset frame time
+        mPreviousTime = Date.now();
+        mLagTime = 0.0;
+        // remember that loop is running
+        mIsLoopRunning = true;
+        // request _runLoop to start when loading is done
+        requestAnimationFrame(function() { _runLoop.call(MyGame); });
+    };
+    
     var mPublic = {
         
     };
