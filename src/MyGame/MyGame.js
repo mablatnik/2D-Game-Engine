@@ -68,39 +68,18 @@ MyGame.prototype.update = function () {
         redXform.setSize(2,2);
     redXform.incSizeBy(0.05);
 };
-    
-    // draw process
+
+// draw process
+MyGame.prototype.draw = function() {
     // clear the canvas
     gEngine.Core.clearCanvas([0.9,0.9,0.9,1]);
     
-    // Starts drawing and activating the camera
+    // set up the view projection
     this.mCamera.setupViewProjection();
-    var vpMatrix = this.mCamera.getVPMatrix();
     
-    // draw the blue square: center blue, slightly rotated
-    this.mBlueSq.getXform().setPosition(20,60);
-    this.mBlueSq.getXform().setRotationInRad(0.2);
-    this.mBlueSq.getXform().setSize(5,5);
-    this.mBlueSq.draw(vpMatrix);
+    // activate the white shader to draw
+    this.mWhiteSq.draw(this.mCamera.getVPMatrix());
     
-    // draw red square: center
-    this.mRedSq.getXform().setPosition(20,60);
-    this.mRedSq.getXform().setSize(2,2);
-    this.mRedSq.draw(vpMatrix);
-    
-    // top left
-    this.mTLSq.getXform().setPosition(10,65);
-    this.mTLSq.draw(vpMatrix);
-    
-    // top right
-    this.mTRSq.getXform().setPosition(30,65);
-    this.mTRSq.draw(vpMatrix);
-    
-    // bottom right
-    this.mBRSq.getXform().setPosition(30,55);
-    this.mBRSq.draw(vpMatrix);
-    
-    // bottom left
-    this.mBLSq.getXform().setPosition(10,55);
-    this.mBLSq.draw(vpMatrix);   
+    // activate the red shader to draw
+    this.mRedSq.draw(this.mCamera.getVPMatrix());
 };
