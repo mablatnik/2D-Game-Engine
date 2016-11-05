@@ -1,3 +1,5 @@
+"use strict";
+
 var gEngine = gEngine || {};
 
 gEngine.GameLoop = (function() {
@@ -9,7 +11,7 @@ gEngine.GameLoop = (function() {
     // variables for timing gameloop
     var mPreviousTime;
     var mLagTime;
-    var CurrentTime;
+    var mCurrentTime;
     var mElapsedTime;
     
     // current loop state
@@ -46,7 +48,7 @@ gEngine.GameLoop = (function() {
         // remember that loop is running
         mIsLoopRunning = true;
         // request _runLoop to start when loading is done
-        requestAnimationFrame(function() { _runLoop.call(MyGame); });
+        requestAnimationFrame(function() { _runLoop.call(mMyGame); });
     };
     
     var mPublic = {
