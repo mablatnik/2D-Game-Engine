@@ -41,6 +41,22 @@ gEngine.Input = (funtion() {
         LastKeyCode: 222
     };
     
+    // previous key state
+    var mKeyPreviousState = [];
+    
+    // pressed keys
+    var mIsKeyPressed = [];
+    
+    // click events
+    var mIsKeyClicked = [];
+    
+    // event service functions
+    var _onKeyDown = function (event) {
+        mIsKeyPressed[event.keyCode] = true; };
+    
+    var _onKeyUp = function (event) {
+        mIsKeyPressed[event.keyCode] = false; };
+    
     var mPublic = {
         
     };
