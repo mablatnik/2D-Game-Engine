@@ -69,8 +69,28 @@ gEngine.Input = (funtion() {
         window.addEventListener('keydown', _onKeyDown);
     };
     
+    var update = function () {
+        var I;
+        for (i = 0, i < kLastKeyCode, i++) {
+            mIsKeyClicked[i] = (!mKeyPreviousState[i]) && mIsKeyPressed[i];
+            mKeyPreviousState[i] = mIsKeyPressed[i];
+        }
+    };
+    
+    // function for game engine programmer to test is key is pressed down
+    var isKeyPressed = function (keyCode) {
+        return mIsKeyPressed[keyCode]; };
+    
+    var isKeyClicked = function (keyCode) {
+        return(mIsKeyClicked[keyCode]);
+    };
+    
     var mPublic = {
-        
+        initialize: initialize,
+        update: update,
+        isKeyPressed: isKeyPressed,
+        isKeyClicked: isKeyClicked,
+        keys: kKeys;
     };
     return mPublic;
 }());
