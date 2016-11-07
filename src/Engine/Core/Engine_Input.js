@@ -1,7 +1,9 @@
-var gEngine = gEngine || {};
+"use strict";
 
-gEngine.Input = (funtion() {
-    // key codes
+var gEngine = gEngine || { };
+
+gEngine.Input = (function () {
+    // Key code constants
     var kKeys = {
         // arrows
         Left: 37,
@@ -58,8 +60,8 @@ gEngine.Input = (funtion() {
         mIsKeyPressed[event.keyCode] = false; };
     
     var initialize = function () {
-        var I;
-        for(i=0; i < kLastKeyCode; i++) {
+        var i;
+        for(i=0; i < kKeys.kLastKeyCode; i++) {
             mIsKeyPressed[i] = false;
             mKeyPreviousState[i] = false;
             mIsKeyClicked[i] = false;
@@ -70,8 +72,8 @@ gEngine.Input = (funtion() {
     };
     
     var update = function () {
-        var I;
-        for (i = 0, i < kLastKeyCode, i++) {
+        var i;
+        for (i = 0; i < kKeys.LastKeyCode; i++) {
             mIsKeyClicked[i] = (!mKeyPreviousState[i]) && mIsKeyPressed[i];
             mKeyPreviousState[i] = mIsKeyPressed[i];
         }
@@ -90,7 +92,7 @@ gEngine.Input = (funtion() {
         update: update,
         isKeyPressed: isKeyPressed,
         isKeyClicked: isKeyClicked,
-        keys: kKeys;
+        keys: kKeys
     };
     return mPublic;
 }());

@@ -32,7 +32,8 @@ gEngine.GameLoop = (function() {
             mLagTime += mElapsedTime;
             // update game appropriate number of times
             while((mLagTime >= kMPF) && mIsLoopRunning) {
-                // call MyGame.update()
+                // update the game engine
+                gEngine.Input.update();
                 this.update();
                 mLagTime -= kMPF;
             }
