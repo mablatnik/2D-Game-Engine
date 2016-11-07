@@ -43,6 +43,23 @@ gEngine.ResourceMap = (function() {
     _checkForAllLoadCompleted();
     };
     
+    var isAssetLoaded = function(rName) {
+        return (rName in mResourceMap);
+    };
+    
+    var retrieveAsset = function(rName) {
+        var r = null;
+        if(rName in mResourceMap)
+            r = mResourceMap[rName].mAsset;
+        return r;
+    };
+    
+    var unloadAsset = function(rName) {
+        if(rName in mResourceMap) {
+            delete mResourceMap[rName];
+        }
+    };
+    
     var mPublic = {
         
     };
