@@ -57,6 +57,18 @@ gEngine.Input = (funtion() {
     var _onKeyUp = function (event) {
         mIsKeyPressed[event.keyCode] = false; };
     
+    var initialize = function () {
+        var I;
+        for(i=0; i < kLastKeyCode; i++) {
+            mIsKeyPressed[i] = false;
+            mKeyPreviousState[i] = false;
+            mIsKeyClicked[i] = false;
+        }
+        // register handlers
+        window.addEventListener('keyup', _onKeyUp);
+        window.addEventListener('keydown', _onKeyDown);
+    };
+    
     var mPublic = {
         
     };
