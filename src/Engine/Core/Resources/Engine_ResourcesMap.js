@@ -61,7 +61,14 @@ gEngine.ResourceMap = (function() {
     };
     
     var mPublic = {
-        
+      // asynchronous resource loading support
+      asyncLoadRequested: asyncLoadRequested,
+      asyncLoadCompleted: asyncLoadCompleted,
+      setLoadCompleteCallback: setLoadCompletedCallback,
+      // resournce storage
+      retrieveAsset: retrieveAsset,
+      unloadAsset: unloadAsset,
+      isAssetLoaded: isAssetLoaded
     };
     return mPublic;
 }());
