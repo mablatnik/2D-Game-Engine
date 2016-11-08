@@ -30,9 +30,9 @@ gEngine.TextFileLoader = (function() {
                     var parser = new DOMParser();
                     fileContent = parser.parseFromString(req.responseText, "text/xml");
                 } else {
-                    filecontent = req.responseText;
+                    fileContent = req.responseText;
                 }
-                gEngine.ResourceMap.asyncLoadCompleted(filename, fileContent);
+                gEngine.ResourceMap.asyncLoadCompleted(fileName, fileContent);
                 if ((callbackFunction !== null) && (callbackFunction !== undefined))
                     callbackFunction(fileName);
             };
@@ -43,6 +43,17 @@ gEngine.TextFileLoader = (function() {
         }
     };
     
-    var mPublic = {};
+    // unloading function
+    var unloadTextFile = function (fileName) {
+        gEngine.ResourceMap.unloadAsses(fileName);
+    };
+    
+    // public interface
+    var mPublic = {
+        loadTextFile: loadTextFile,
+        unloadTextFile: unloadTextFile,
+        eTextFileType: eTextFileType
+    };
+    
     return mPublic;
 }());
