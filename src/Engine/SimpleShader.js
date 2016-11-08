@@ -1,6 +1,6 @@
 "Use strict";
 
-function SimpleShader(vertexShaderID, fragmentShaderID) {
+function SimpleShader(vertexShaderPath, fragmentShaderPath) {
     // instance variables
     this.mCompiledShader = null;
     this.mShaderVertexPositionAttribute = null;
@@ -10,8 +10,8 @@ function SimpleShader(vertexShaderID, fragmentShaderID) {
     
     var gl = gEngine.Core.getGL();
     // start of constructor code
-    var vertexShader = this._loadAndCompileShader(vertexShaderID, gl.VERTEX_SHADER);
-    var fragmentShader = this._loadAndCompileShader(fragmentShaderID, gl.FRAGMENT_SHADER);
+    var vertexShader = this._compileShader(vertexShaderPath, gl.VERTEX_SHADER);
+    var fragmentShader = this._compileShader(fragmentShaderPath, gl.FRAGMENT_SHADER);
     // create and liink shader into a program
     this.mCompiledShader = gl.createProgram();
     gl.attachShader(this.mCompiledShader, vertexShader);
@@ -63,7 +63,7 @@ SimpleShader.prototype.loadObjectTransform = function(modelTransform) {
 };
 
 // performs loading and compiling functionality
-SimpleShader.prototype._loadAndCompileShader = function(filePath, shaderType) {
+SimpleShader.prototype._compileShader = function(filePath, shaderType) {
     var gl = gEngine.Core.getGL();
     var xmlReq, shaderSource = null, compiledShader = null;
     // request shader source for GLSL file
@@ -76,7 +76,7 @@ SimpleShader.prototype._loadAndCompileShader = function(filePath, shaderType) {
                 "The index.html file must be loaded by a web-server.]");
         return null;
     }
-    shaderSource = xmlReq.responseText;
+    shaderSource = gEngine.ResourceMap.retrieveAsset(filePath);
 
     if (shaderSource === null) {
         alert("WARNING: Loading of:" + filePath + " Failed!");

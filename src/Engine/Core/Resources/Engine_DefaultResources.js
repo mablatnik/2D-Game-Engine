@@ -25,6 +25,9 @@ gEngine.DefaultResources = (function () {
         gEngine.TextFileLoader.loadTextFile(kSimpleFS, gEngine.TextFileLoader.eTextFileType.eTextFile);
         gEngine.ResourceMap.setLoadCompleteCallback(function() {_createShaders(callBackFunction);});
     };
-    var mPublic = {};
+    var mPublic = {
+        initialize: _initialize,
+        getConstColorShader: _getConstColorShader
+    };
     return mPublic;
 }());

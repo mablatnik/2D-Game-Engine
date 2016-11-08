@@ -7,19 +7,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body onload="new MyGame('GLCanvas');">
-        <!-- Engine Code -->
+        <!-- Engine -->
             <!-- Engine Core -->
             <script type="text/javascript" src="src/Engine/Core/Engine_Core.js"></script>
             <script type="text/javascript" src="src/Engine/Core/Engine_VertexBuffer.js"></script>
             <script type="text/javascript" src="src/Engine/Core/Engine_GameLoop.js"></script>
             <script type="text/javascript" src="src/Engine/Core/Engine_Input.js"></script>
-            <script type="text/javascript" src="src/Engine/Core/Engine_DefaultResources.js"></script>
+                <!-- Engine Resources -->
+                <script type="text/javascript" src="src/Engine/Core/Engine_DefaultResources.js"></script>
+                <script type="text/javascript" src="src/Engine/Core/Engine_ResourcesMap.js"></script>
+                <script type="text/javascript" src="src/Engine/Core/Engine_TextFileLoader.js"></script>
         <script type="text/javascript" src="src/Engine/SimpleShader.js"></script>
         <script type="text/javascript" src="src/Engine/Renderable.js"></script>
         <script type="text/javascript" src="src/Engine/Transform.js"></script>
         <script type="text/javascript" src="src/Engine/Camera.js"></script>
         
-        <!-- Client Game Code -->
+        <!-- Client Game -->
         <script type="text/javascript" src="src/MyGame/MyGame.js"></script>
         <!-- Library -->
         <script type="text/javascript" src="src/lib/gl-matrix.js"></script>
