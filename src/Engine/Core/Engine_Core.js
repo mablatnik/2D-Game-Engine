@@ -26,6 +26,14 @@ gEngine.Core = (function() {
         _initializeWebGL(htmlCanvasID);
         gEngine.VertexBuffer.initialize();
         gEngine.Input.initialize();
+        // initialize DefaultResource and invokes startScene
+        gEngine.DefaultResources.initialize(function(){startScene(myGame);});
+    };
+    
+    var startScene = function(myGame) {
+        // order of call matters
+        myGame.initialize.call(myGame);
+        gEngine.GameLoop.start(myGame);
     };
     
     // clears the draw area and draws one square
