@@ -10,3 +10,19 @@ SceneFileParser.prototype._getElm = function(tagElm) {
     return theElm;
 };
 
+SceneFileParser.prototype.parseCamera = function () {
+    var camElm = this._getElm("Camera");
+    var cx = Number(camElm[0].getAttribute("CenterX"));
+    var cy = Number(camElm[0].getAttribute("CenterY"));
+    var w = Number(camElm[0].getAttribute("Width"));
+    var viewport = camElm[0].getAttribute("Viewport").split(" ");
+    var bgColor = camElm[0].getAttribute("BgColor").split(" ");
+    
+    // make sure viewport and color are numbers
+    for(var j = 0; j<4; j++) {
+        bgColor[j] = Number(bgColor[j]);
+        viewport[j] = Number(viewport[j]);
+    }
+    
+    
+};
