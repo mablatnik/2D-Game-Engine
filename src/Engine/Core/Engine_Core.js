@@ -22,12 +22,12 @@ gEngine.Core = (function() {
     var getGL = function() {return mGL;};
     
     // initialize all of the EngineCore components
-    var initializeEngineCore = function(htmlCanvasID) {
+    var initializeEngineCore = function (htmlCanvasID, myGame) {
         _initializeWebGL(htmlCanvasID);
         gEngine.VertexBuffer.initialize();
         gEngine.Input.initialize();
         // initialize DefaultResource and invokes startScene
-        gEngine.DefaultResources.initialize(function(){startScene(myGame);});
+        gEngine.DefaultResources.initialize(function () { startScene(myGame); });
     };
     
     var startScene = function(myGame) {

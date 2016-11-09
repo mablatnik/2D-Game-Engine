@@ -2,7 +2,7 @@
 
 var gEngine = gEngine || { };
 
-gEngine.TextFileLoader = (function() {
+gEngine.TextFileLoader = (function () {
     // create an immutable object
     var eTextFileType = Object.freeze({
         eXMLFile: 0,
@@ -12,11 +12,11 @@ gEngine.TextFileLoader = (function() {
     var loadTextFile = function(fileName, fileType, callbackFunction) {
         if(!(gEngine.ResourceMap.isAssetLoaded(fileName))) {
             // update resource load counter
-            gEngine.ResourceMap.asyncLoadRequest(fileName);
+            gEngine.ResourceMap.asyncLoadRequested(fileName);
             // asyncrounsly request the data from server
             var req = new XMLHttpRequest();
             req.onreadystatechange = function() {
-                if ((rew.readyState === 4) && (req.status !== 200)) {
+                if ((req.readyState === 4) && (req.status !== 200)) {
                     alert(fileName + ":loading failed! \n\
                     [Hint: you cannot dounle click index.html to run project." +
                     "The index.html file must be loaded by a web server.]");

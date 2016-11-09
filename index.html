@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html>
     <head>
         <title>2D Game Engine</title>
         <link rel="shortcut icon" href="">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-    <body onload="new MyGame('GLCanvas');">
+    <body onload="
+        var myGame = new MyGame();
+        gEngine.Core.initializeEngineCore('GLCanvas', myGame);
+            ">
+        <!-- External Library -->
+        <script type="text/javascript" src="src/lib/gl-matrix.js"></script>
+        
         <!-- Engine -->
             <!-- Engine Core -->
             <script type="text/javascript" src="src/Engine/Core/Engine_Core.js"></script>
@@ -14,9 +19,9 @@
             <script type="text/javascript" src="src/Engine/Core/Engine_GameLoop.js"></script>
             <script type="text/javascript" src="src/Engine/Core/Engine_Input.js"></script>
                 <!-- Engine Resources -->
-                <script type="text/javascript" src="src/Engine/Core/Engine_DefaultResources.js"></script>
-                <script type="text/javascript" src="src/Engine/Core/Engine_ResourcesMap.js"></script>
-                <script type="text/javascript" src="src/Engine/Core/Engine_TextFileLoader.js"></script>
+                <script type="text/javascript" src="src/Engine/Core/Resources/Engine_ResourcesMap.js"></script>
+                <script type="text/javascript" src="src/Engine/Core/Resources/Engine_TextFileLoader.js"></script>
+                <script type="text/javascript" src="src/Engine/Core/Resources/Engine_DefaultResources.js"></script>
         <script type="text/javascript" src="src/Engine/SimpleShader.js"></script>
         <script type="text/javascript" src="src/Engine/Renderable.js"></script>
         <script type="text/javascript" src="src/Engine/Transform.js"></script>
@@ -24,8 +29,6 @@
         
         <!-- Client Game -->
         <script type="text/javascript" src="src/MyGame/MyGame.js"></script>
-        <!-- Library -->
-        <script type="text/javascript" src="src/lib/gl-matrix.js"></script>
         
         <!-- Create HTML5 canvas -->
         <canvas id="GLCanvas" width="640" height="480">
@@ -33,4 +36,3 @@
         </canvas>
         
     </body>
-</html>

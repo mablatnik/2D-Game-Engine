@@ -1,21 +1,12 @@
 "use strict";
 
-function MyGame(htmlCanvasID) {
-    // variables for the shader
-    this.mConstColorShader = null;
-    
+function MyGame() {
     // variables for the squares
     this.mWhiteSq = null;
     this.mRedSq = null;
     
     // The camera to view the scene
     this.mCamera = null;
-    
-    // initialize webGL context and VertexBuffer
-    gEngine.Core.initializeEngineCore(htmlCanvasID);
-    
-    // initialize the game
-    this.initialize();
 }
 
 MyGame.prototype.initialize = function () {
@@ -28,17 +19,14 @@ MyGame.prototype.initialize = function () {
             [20,40,600,300]
             );
     this.mCamera.setBackgroundColor([0.8,0.8,0.8,1]);
-   
-    // create the shader
-    this.mConstColorShader = new SimpleShader(
-        "src/GLSLShaders/SimpleVS.glsl", 
-        "src/GLSLShaders/SimpleFS.glsl");
     
     // create the renderable objects
-    this.mWhiteSq = new Renderable(this.mConstColorShader);
-    this.mWhiteSq.setColor([1,1,1,1]);
-    this.mRedSq = new Renderable(this.mConstColorShader);
-    this.mRedSq.setColor([1,0,0,1]);
+    var constColorShader = gEngine.DefaultResources.getConstColorShader();
+    
+    this.mWhiteSq = new Renderable(constColorShader);
+    this.mWhiteSq.setColor([1, 1, 1, 1]);
+    this.mRedSq = new Renderable(constColorShader);
+    this.mRedSq.setColor([1, 0, 0, 1]);
     
     // initialize the whiteSq: centered, 5x5, rotated
     this.mWhiteSq.getXform().setPosition(20,60);

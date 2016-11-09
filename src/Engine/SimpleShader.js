@@ -65,17 +65,8 @@ SimpleShader.prototype.loadObjectTransform = function(modelTransform) {
 // performs loading and compiling functionality
 SimpleShader.prototype._compileShader = function(filePath, shaderType) {
     var gl = gEngine.Core.getGL();
-    var xmlReq, shaderSource = null, compiledShader = null;
-    // request shader source for GLSL file
-    xmlReq = new XMLHttpRequest();
-    xmlReq.open('GET', filePath, false);
-    try {
-        xmlReq.send();
-    } catch (error) {
-        alert("Failed to load shader: " + filePath + " [Hint: you cannot double click index.html to run this project. " +
-                "The index.html file must be loaded by a web-server.]");
-        return null;
-    }
+    var shaderSource = null, compiledShader = null;
+    // access the shader textfile
     shaderSource = gEngine.ResourceMap.retrieveAsset(filePath);
 
     if (shaderSource === null) {

@@ -25,12 +25,13 @@ gEngine.ResourceMap = (function() {
         }
     };
     
-    var setLoadCompleteCallback = function(funct) {
-        mLoadcompleteCallback = funct;
+    var setLoadCompleteCallback = function (funct) {
+        mLoadCompleteCallback = funct;
+        // in case all loading are done
         _checkForAllLoadCompleted();
     };
     
-    var asyncLoadRequest = function(rName) {
+    var asyncLoadRequested = function(rName) {
         mResourceMap[rName] = new MapEntry(rName);
         ++mNumOutstandingLoads;
     };
@@ -64,7 +65,7 @@ gEngine.ResourceMap = (function() {
       // asynchronous resource loading support
       asyncLoadRequested: asyncLoadRequested,
       asyncLoadCompleted: asyncLoadCompleted,
-      setLoadCompleteCallback: setLoadCompletedCallback,
+      setLoadCompleteCallback: setLoadCompleteCallback,
       // resournce storage
       retrieveAsset: retrieveAsset,
       unloadAsset: unloadAsset,
