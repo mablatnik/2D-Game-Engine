@@ -24,5 +24,11 @@ SceneFileParser.prototype.parseCamera = function () {
         viewport[j] = Number(viewport[j]);
     }
     
-    
+    var cam = new Camera(
+            vec2.fromValues(cx, cy),
+            w,
+            viewport);
+            
+            cam.setBackgroundColor(bgColor);
+            return cam;
 };
