@@ -32,3 +32,26 @@ SceneFileParser.prototype.parseCamera = function () {
             cam.setBackgroundColor(bgColor);
             return cam;
 };
+
+SceneFileParser.prototype.parseSquare = function(sqSet) {
+    var elm = this._getElm("Square");
+    var I,j,x,y,w,h,r,c,sq;
+    for(i=0; i<elm.length; i++) {
+        x = Number(elm.item(i).attributes.getNamedItem("PosX").value);
+        y = Number(elm.item(i).attributes.getNamedItem("PosY").value);
+        w = Number(elm.item(i).attributes.getNamedItem("Width").value);
+        h = Number(elm.item(i).attributes.getNamedItem("Height").value);
+        r = Number(elm.item(i).attributes.getNamedItem("Rotation").value);
+        c = elm.item(i).attributes.getNamedItem("Color").value.split(" ");
+        sq = new Renderable(gEngine.DefaultResources.getConstColorShader());
+        
+        // make sure color array contains numbers
+        for(j=0;j<3;j++)
+            c[j] = Number(c[j]);
+        sq.setColor(c);
+        sq.getXform().setPosition(x,y);
+        sq.getXform().seRotationInDegree(r);
+        sq.getXform().setSize(w,h);
+        sqSet.push(sq);
+    }
+};
