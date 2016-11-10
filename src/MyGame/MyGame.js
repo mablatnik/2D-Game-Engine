@@ -28,30 +28,6 @@ MyGame.prototype.initialize = function () {
     sceneParser.parseSquare(this.mSqSet);
 };
 
-// update function, updates the application state
-MyGame.prototype.update = function () {
-    // move the white square
-    var whiteXform = this.mWhiteSq.getXform();
-    var deltaX = 0.05;
-    // test for white square movement
-    if(gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)) {
-        if(whiteXform.getXPos() > 30)
-            whiteXform.setPosition(10,60);
-        whiteXform.incXPosBy(deltaX);
-    }
-    // test for white square rotation
-    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Up))
-        whiteXform.incRotationByDegree(1);
-    
-    var redXform = this.mRedSq.getXform();
-    // test for pulsing red square
-    if(gEngine.Input.isKeyPressed(gEngine.Input.keys.Down)) {
-        if(redXform.getWidth() > 5)
-            redXform.setSize(2,2);
-        redXform.incSizeBy(0.05);
-    }
-};
-
 // draw process
 MyGame.prototype.draw = function() {
     // clear the canvas
@@ -60,9 +36,38 @@ MyGame.prototype.draw = function() {
     // set up the view projection
     this.mCamera.setupViewProjection();
     
-    // activate the white shader to draw
-    this.mWhiteSq.draw(this.mCamera.getVPMatrix());
+    // draw all the squares
+    for(var i=0;i<this.mSqSet.length;i++) {
+        this.mSqSet[i].draw(this.mCamera.getVPMatrix());
+    }
+};
+
+
+// update function, updates the application state
+MyGame.prototype.update = function () {
+    // move the white square and pulse red square
+    var xform = this.mSqSet[0].getXform();
+    var deltaX = 0.05;
     
-    // activate the red shader to draw
-    this.mRedSq.draw(this.mCamera.getVPMatrix());
+    // test for white square movement
+    if(gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)) {
+        if(xform.getXPos() > 30) {
+            xform.setPosition(10,60);
+        }
+        xform.incXPosBy(deltaX);
+    }
+    
+    // test for white square rotation
+    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Up)) {
+        xform.incRotationByDegree(1);
+    }
+    
+    xform = this.mSqSet[1].getXform();
+    // test for pulsing red square
+    if(gEngine.Input.isKeyPressed(gEngine.Input.keys.Down)) {
+        if(xform.getWidth() > 5) {
+            xform.setSize(2,2);
+        }
+        xform.incSizeBy(0.05);
+    }
 };
