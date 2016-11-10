@@ -1,44 +1,31 @@
 "use strict";
 
 function MyGame() {
-    // variables for the squares
-    this.mWhiteSq = null;
-    this.mRedSq = null;
+    // scene file name
+    this.KSceneFile = "assets/scene.xml";
+    
+    // create array to hold all renderable objects
+    this.mSqSet = new Array();
     
     // The camera to view the scene
     this.mCamera = null;
 }
 
+MyGame.prototype.loadScene = function() {
+    gEngine.TextFileLoader.loadTextFile(this.kSceneFile, 
+                                        gEngine.TextFileLoader.eTextFileType.eXMLFile);
+};
+
+MyGame.prototype.unloadScene = function() {
+    gEngine.TextFileLoader.unloadTextFile(this.kSceneFile);
+};
+
 MyGame.prototype.initialize = function () {
-    
-    
-    // seetup the camera
-    this.mCamera = new Camera(
-            vec2.fromValues(20,60),
-            20,
-            [20,40,600,300]
-            );
-    this.mCamera.setBackgroundColor([0.8,0.8,0.8,1]);
-    
-    // create the renderable objects
-    var constColorShader = gEngine.DefaultResources.getConstColorShader();
-    
-    this.mWhiteSq = new Renderable(constColorShader);
-    this.mWhiteSq.setColor([1, 1, 1, 1]);
-    this.mRedSq = new Renderable(constColorShader);
-    this.mRedSq.setColor([1, 0, 0, 1]);
-    
-    // initialize the whiteSq: centered, 5x5, rotated
-    this.mWhiteSq.getXform().setPosition(20,60);
-    this.mWhiteSq.getXform().setRotationInRad(0.2);
-    this.mWhiteSq.getXform().setSize(5,5);
-    
-    // initialize the redSq: centered 2x2
-    this.mRedSq.getXform().setPosition(20,60);
-    this.mRedSq.getXform().setSize(2,2);
-    
-    // start game loop
-    gEngine.GameLoop.start(this);
+    var sceneParser = new SceneFileParser(this.kSceneFile);
+    // parse the camera
+    this.mCamera = sceneParser.parseCamera();
+    // parse all the squares
+    sceneParser.parseSquare(this.mSqSet);
 };
 
 // update function, updates the application state
