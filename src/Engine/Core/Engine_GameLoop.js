@@ -38,6 +38,9 @@ gEngine.GameLoop = (function() {
                 mLagTime -= kMPF;
             }
             this.draw();
+        } else {
+            // game loop has stopped, unload current scene
+            mMyGame.unloadScene();
         }
     };
     
@@ -64,8 +67,13 @@ gEngine.GameLoop = (function() {
         );
     };
     
+    var stop = function() {
+        mIsLoopRunning = false;
+    };
+    
     var mPublic = {
-        start: start
+        start: start,
+        stop: stop
     };
     
     return mPublic;

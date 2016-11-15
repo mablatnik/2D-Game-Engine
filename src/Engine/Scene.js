@@ -1,5 +1,7 @@
 "use strict";
 
+// it is expected that subclasses will override these functions
+
 function Scene() {}
 
 Scene.prototype.initialize = function() {
