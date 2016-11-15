@@ -21,6 +21,12 @@ gEngine.Core = (function() {
     // accessor of the webgl context
     var getGL = function() {return mGL;};
     
+    var startScene = function(scene) {
+        // order of call matters
+        scene.loadScene.call(scene);
+        gEngine.GameLoop.start(scene);
+    };
+    
     // initialize all of the EngineCore components
     var initializeEngineCore = function (htmlCanvasID, myGame) {
         _initializeWebGL(htmlCanvasID);
@@ -28,12 +34,6 @@ gEngine.Core = (function() {
         gEngine.Input.initialize();
         // initialize DefaultResource and invokes startScene
         gEngine.DefaultResources.initialize(function () { startScene(myGame); });
-    };
-    
-    var startScene = function(myGame) {
-        // order of call matters
-        myGame.initialize.call(myGame);
-        gEngine.GameLoop.start(myGame);
     };
     
     // clears the draw area and draws one square
@@ -45,7 +45,8 @@ gEngine.Core = (function() {
     var mPublic = {
         getGL: getGL,
         initializeEngineCore: initializeEngineCore,
-        clearCanvas: clearCanvas
+        clearCanvas: clearCanvas,
+        startScene: startScene
     };
     return mPublic;
 }());
