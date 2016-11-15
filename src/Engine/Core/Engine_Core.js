@@ -41,11 +41,19 @@ gEngine.Core = (function() {
         mGL.clearColor(color[0], color[1], color[2], color[3]);
         mGL.clear(mGL.COLOR_BUFFER_BIT);
     };
+    
+    var inheritPrototype = function(subClass, superClass) {
+        var prototype = Object.create(superClass.prototype);
+        prototype.constructor = subClass;
+        subClass.prototype = prototype;
+    };
+    
     // contains functions and variables that will be accessible
     var mPublic = {
         getGL: getGL,
         initializeEngineCore: initializeEngineCore,
         clearCanvas: clearCanvas,
+        inheritPrototype: inheritPrototype,
         startScene: startScene
     };
     return mPublic;
