@@ -15,6 +15,7 @@ gEngine.AudioClips = (function(){
     };
     
     var loadAudio = function(clipName) {
+        // check if audio clip is already loaded
         if(!(gEngine.ResourceMap.isAssetLoaded(clipName))) {
             // update resources in load counter
             gEngine.ResourceMap.asyncLoadRequested(clipName);
@@ -34,7 +35,7 @@ gEngine.AudioClips = (function(){
                 // asynchronously decode
                 mAudioContext.decodeAudioData(req.response,
                     function (bufffer) {
-                        gEngine.ResourceMap.incAssetRefCount(clipName);
+                        gEngine.ResourceMap.asyncLoadCompleted(clipName, buffer);
                     }
                 );
             };
@@ -42,6 +43,10 @@ gEngine.AudioClips = (function(){
         } else {
             gEngine.ResourceMap.incAssetRefCount(clipName);
         }
+    };
+    
+    var unloadAudio = function(clipName) {
+        gEngine.ResourceMap.unloadAsset(clipName);
     };
     
     var mPublic = {};
