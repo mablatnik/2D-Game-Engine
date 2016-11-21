@@ -1,7 +1,19 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+"use strict";
 
+var gEngine = gEngine || {};
 
+gEngine.AudioClips = (function(){
+    var mAudioContext = null;
+    var mBgAudioNode = null;
+    
+    // initialize audio context to play sounds
+    var initAudioContext = function () {
+        try {
+            var AudioContext = window.AudioContext || window.webkitAudioContext;
+            mAudioContext = new AudioContext();
+        } catch (e) {alert("Web Audio Is not supported."); }
+    };
+    
+    var mPublic = {};
+    return mPublic;
+}());
