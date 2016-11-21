@@ -72,6 +72,14 @@ gEngine.AudioClips = (function(){
         }
     };
     
+    var stopBackgroundAudio = function () {
+        // check if the audio is playing
+        if (mBgAudioNode !== null) {
+            mBgAudioNode.stop(0);
+            mBgAudioNode = null;
+        }
+    };
+    
     var mPublic = {};
     return mPublic;
 }());
