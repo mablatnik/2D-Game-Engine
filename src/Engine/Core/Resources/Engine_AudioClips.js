@@ -51,12 +51,24 @@ gEngine.AudioClips = (function(){
     
     var playACue = function(clipName) {
         var clipInfo = gEngine.ResourceMap.retrieveAsses(clipName);
-        if (clipInfo != null) {
+        if (clipInfo !== null) {
             // SourceNodes are one use only
             var sourceNode = mAudioContext.createBufferSource();
             sourceNode.buffer = clipInfo;
             sourceNode.connect(mAudioContext.destination);
             sourceNode.start(0);
+        }
+    };
+    
+    var playBackgroundAudio = function (clipName) {
+        var clipInfo = gEngine.ResourceMap.retrieveAsset(clipName);
+        if (clipInfo !== null) {
+            // stop audio if playing
+            stopBackgroundAudio();
+            mBgAudioNode = mAudioContext.createBufferSource();
+            mBgAudioNode.buffer = clipInfo;
+            mBgAudioNode.connect(mAudioContext.destination);
+            mBgAudioNode.start(0);
         }
     };
     
