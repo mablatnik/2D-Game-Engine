@@ -45,7 +45,7 @@ gEngine.TextFileLoader = (function () {
     
     // unloading function
     var unloadTextFile = function (fileName) {
-        gEngine.ResourceMap.unloadAsses(fileName);
+        gEngine.ResourceMap.unloadAsset(fileName);
     };
     
     // public interface

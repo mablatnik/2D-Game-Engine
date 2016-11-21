@@ -3,7 +3,7 @@
                 <!-- Viewport: x, y, w, h -->
     <Camera CenterX="20" CenterY="60" Width="20"
           Viewport="20 40 600 300"
-          BgColorl="0 0 1 1.0"
+          BgColor="0 0 1 1.0"
           />
     
     <!-- Squares Rotation is in degree -->

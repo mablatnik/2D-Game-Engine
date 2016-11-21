@@ -1,31 +1,40 @@
 "use strict";
 
 function MyGame() {
-    // scene file name
-    this.kSceneFile = "assets/scene.xml";
-    
-    // create array to hold all renderable objects
-    this.mSqSet = [];
-    
     // The camera to view the scene
     this.mCamera = null;
+    
+    // the hero and the support objects
+    this.mHero = null;
+    this.mSupport = null;
 }
-
-MyGame.prototype.loadScene = function () {
-    gEngine.TextFileLoader.loadTextFile(this.kSceneFile,
-        gEngine.TextFileLoader.eTextFileType.eXMLFile);
-};
+gEngine.Core.inheritPrototype(MyGame, Scene);
 
 MyGame.prototype.unloadScene = function () {
-    gEngine.TextFileLoader.unloadTextFile(this.kSceneFile);
+    var nextLevel = new BlueLevel();  // next level to be loaded
+    gEngine.Core.startScene(nextLevel);
 };
 
 MyGame.prototype.initialize = function () {
-    var sceneParser = new SceneFileParser(this.kSceneFile);
-    // parse the camera
-    this.mCamera = sceneParser.parseCamera();
-    // parse all the squares
-    sceneParser.parseSquares(this.mSqSet);
+    // set up the camera
+    this.mCamera = new Camera(
+        vec2.fromValues(20, 60),   // position of the camera
+        20,                        // width of camera
+        [20, 40, 600, 300]         // viewport (orgX, orgY, width, height)
+    );
+    this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
+    
+    // create support object in red
+    this.mSupport = new Renderable(gEngine.DefaultResources.getConstColorShader());
+    this.mSupport.setColor([0.8, 0.2, 0.2, 1]);
+    this.mSupport.getXform().setPosition(20, 60);
+    this.mSupport.getXform().setSize(5, 5);
+    
+    // create the hero object in blue
+    this.mHero = new Renderable(gEngine.DefaultResources.getConstColorShader());
+    this.mHero.setColor([0, 0, 1, 1]);
+    this.mHero.getXform().setPosition(20, 60);
+    this.mHero.getXform().setSize(2, 3);
 };
 
 // draw process
@@ -37,38 +46,29 @@ MyGame.prototype.draw = function() {
     this.mCamera.setupViewProjection();
     
     // draw all the squares
-    var i;
-    for (i = 0; i < this.mSqSet.length; i++) {
-        this.mSqSet[i].draw(this.mCamera.getVPMatrix());
-    }
+    this.mSupport.draw(this.mCamera.getVPMatrix());
+    this.mHero.draw(this.mCamera.getVPMatrix());
 };
-
 
 // update function, updates the application state
 MyGame.prototype.update = function () {
     // move the white square and pulse red square
-    var xform = this.mSqSet[0].getXform();
     var deltaX = 0.05;
+    var xform = this.mHero.getXform();
     
     // test for white square movement
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)) {
-        if (xform.getXPos() > 30) { // this is the right-bound of the window
-            xform.setPosition(10, 60);
-        }
         xform.incXPosBy(deltaX);
+        if (xform.getXPos() > 30) { // this is the right-bound of the window
+            xform.setPosition(12, 60);
+        }
     }
     
     // test for white square rotation
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Up)) {
-        xform.incRotationByDegree(1);
-    }
-    
-    xform = this.mSqSet[1].getXform();
-    // test for pulsing red square
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Down)) {
-        if (xform.getWidth() > 5) {
-            xform.setSize(2, 2);
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Left)) {
+        xform.incXPosBy(-deltaX);
+        if (xform.getXPos() < 11) {  // this is the left-bound of the window
+            gEngine.GameLoop.stop();
         }
-        xform.incSizeBy(0.05);
     }
 };
