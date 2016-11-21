@@ -49,6 +49,17 @@ gEngine.AudioClips = (function(){
         gEngine.ResourceMap.unloadAsset(clipName);
     };
     
+    var playACue = function(clipName) {
+        var clipInfo = gEngine.ResourceMap.retrieveAsses(clipName);
+        if (clipInfo != null) {
+            // SourceNodes are one use only
+            var sourceNode = mAudioContext.createBufferSource();
+            sourceNode.buffer = clipInfo;
+            sourceNode.connect(mAudioContext.destination);
+            sourceNode.start(0);
+        }
+    };
+    
     var mPublic = {};
     return mPublic;
 }());
