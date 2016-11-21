@@ -80,6 +80,10 @@ gEngine.AudioClips = (function(){
         }
     };
     
+    var isBackgroundAudioPlaying = function() {
+        return (mBgAudioNode !== null);
+    };
+    
     var mPublic = {};
     return mPublic;
 }());
