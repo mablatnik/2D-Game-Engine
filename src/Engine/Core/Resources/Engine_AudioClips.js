@@ -84,6 +84,14 @@ gEngine.AudioClips = (function(){
         return (mBgAudioNode !== null);
     };
     
-    var mPublic = {};
+    var mPublic = {
+        initAudioContext: initAudioContext,
+        loadAudio: loadAudio,
+        unloadAudio: unloadAudio,
+        playACue: playACue,
+        playBackgroundAudio: playBackgroundAudio,
+        stopBackgroundAudio: stopBackgroundAudio,
+        isBackgroundAudio: isBackgroundAudioPlaying
+    };
     return mPublic;
 }());
