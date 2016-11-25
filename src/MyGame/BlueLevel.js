@@ -1,10 +1,15 @@
 "use strict";
 
 function BlueLevel() {
+    // audio clips
+    this.kBgClip = "assets/sounds/BGClip.mp3";
+    this.kCue = "assets/sounds/BlueLevel_cue.wav";
+    
     // scene file name
     this.kSceneFile = "assets/BlueLevel.xml";
     // all squares, the renderable objects
     this.mSqSet = [];
+    
     // the camera to view the scene
     this.mCamera = null;
 }
@@ -14,13 +19,23 @@ gEngine.Core.inheritPrototype(BlueLevel, Scene);
 BlueLevel.prototype.loadScene = function () {
     // load the scene file
     gEngine.TextFileLoader.loadTextFile(this.kSceneFile, gEngine.TextFileLoader.eTextFileType.eXMLFile);
+    
+    // load audio
+    gEngine.AudioClips.loadAudio(this.kBgClip);
+    gEngine.AudioClips.loadAudio(this.kCue);
 };
 
 BlueLevel.prototype.unloadScene = function () {
-    // unload the scene flie
+    // stop background music
+    gEngine.AudioClips.stopBackgroundAudio();
+    
+    // unload the scene flie and loaded resources
     gEngine.TextFileLoader.unloadTextFile(this.kSceneFile);
-
-    var nextLevel = new MyGame();  // load the next level
+    gEngine.AudioClips.unloadAudio(this.kBgClip);
+    gEngine.AudioClips.unloadAudio(this.kCue);
+    
+    // load the next level
+    var nextLevel = new MyGame();  
     gEngine.Core.startScene(nextLevel);
 };
 
@@ -32,6 +47,9 @@ BlueLevel.prototype.initialize = function () {
 
     // parse all the squares
     sceneParser.parseSquares(this.mSqSet);
+    
+    // start background music
+    gEngine.AudioClips.playBackgroundAudio(this.kBgClip);
 };
 
 // draw process
@@ -56,6 +74,7 @@ BlueLevel.prototype.update = function () {
     var deltaX = 0.05;
     
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)) {
+        gEngine.AudioClips.playACue(this.kCue);
         xform.incXPosBy(deltaX);
         if (xform.getXPos() > 30) { // this is the right-bound of the window
             xform.setPosition(12, 60);
@@ -63,6 +82,7 @@ BlueLevel.prototype.update = function () {
     }
 
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Left)) {
+        gEngine.AudioClips.playACue(this.kCue);
         xform.incXPosBy(-deltaX);
         if (xform.getXPos() < 11) { // this is the left-boundary
             gEngine.GameLoop.stop();

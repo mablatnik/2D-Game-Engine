@@ -31,13 +31,13 @@ gEngine.AudioClips = (function(){
             req.open('GET', clipName, true);
             // request retrieves binary data
             req.responseType = 'arraybuffer';
-            req.onload = function() {
-                // asynchronously decode
+            req.onload = function () {
+                // Asynchronously decode, then call the function in parameter.
                 mAudioContext.decodeAudioData(req.response,
-                    function (bufffer) {
+                    function (buffer) {
                         gEngine.ResourceMap.asyncLoadCompleted(clipName, buffer);
                     }
-                );
+                    );
             };
             req.send();
         } else {
