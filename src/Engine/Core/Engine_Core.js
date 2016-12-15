@@ -10,8 +10,16 @@ gEngine.Core = (function() {
     // initialize the WebGL, buffer, and compile shaders
     var _initializeWebGL = function(htmlCanvasID) {
         var canvas = document.getElementById(htmlCanvasID);
-        // get WebGL and bind to canvas
-        mGL = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+        // get the standard or experimental webgl and bind to canvas
+        mGL = canvas.getContext("webgl", {alpha: false}) || canvas.getContext("experimental-webgl", {alpha: false});
+        
+        // allows transperency with textures
+        mGL.blendFunc(mGL.SRC_ALPHA, mGL.ONE_MINUS_SRC_ALPHA);
+        mGL.enable(mGL.BLEND);
+        
+        // set images to flip y axis to match the texture coordinate space
+        mGL.pixelStorei(mGL.UNPACK_FLIP_Y_WEBGL, true);
+        
         if(mGL === null) {
             document.write("<br><b>WebGL is not supported!</b>");
             return;
