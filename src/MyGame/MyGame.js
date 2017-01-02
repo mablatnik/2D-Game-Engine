@@ -5,12 +5,17 @@ function MyGame() {
     this.kBgClip = "assests/sounds/BGClip.mp3";
     this.kCue = "assets/sounds/MyGame_cue.wav";
     
+    // textures
+    this.kPortal = "assets/minion_portal.png"; // supports tranparency
+    this.kCollector = "assets/minion_collector.png";
+    
     // The camera to view the scene
     this.mCamera = null;
     
     // the hero and the support objects
     this.mHero = null;
-    this.mSupport = null;
+    this.mPortal = null;
+    this.mCollector = null;
 }
 gEngine.Core.inheritPrototype(MyGame, Scene);
 
@@ -18,11 +23,17 @@ MyGame.prototype.loadScene = function() {
     // load audio
     gEngine.AudioClips.loadAudio(this.kBgClip);
     gEngine.AudioClips.loadAudio(this.kCue);
+    
+    // loads textures
+    gEngine.Textures.loadTexture(this.kPortal);
+    gEngine.Textures.loadTexture(this.kCollector);
 };
 
 MyGame.prototype.unloadScene = function () {
     // stop background music
     gEngine.AudioClips.unloadAudio(this.kCue);
+    gEngine.Textures.unloadTexture(this.kPortal);
+    gEngine.Textures.unloadTexture(this.kCollector);
     
     // start the next level
     var nextLevel = new BlueLevel();  // next level to be loaded
@@ -38,14 +49,26 @@ MyGame.prototype.initialize = function () {
     );
     this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
     
-    // create support object in red
+    /* Previous Build: create support object in red
     this.mSupport = new Renderable(gEngine.DefaultResources.getConstColorShader());
     this.mSupport.setColor([0.8, 0.2, 0.2, 1]);
     this.mSupport.getXform().setPosition(20, 60);
     this.mSupport.getXform().setSize(5, 5);
+    */
+    
+    // create the game objects
+    this.mPortal = new TextureRenderable(this.kPortal);
+    this.mPortal.setColor([1, 0, 0, 0.2]);  // tints red
+    this.mPortal.getXform().setPosition(25, 60);
+    this.mPortal.getXform().setSize(3, 3);
+    
+    this.mCollector = new TextureRenderable(this.kCollector);
+    this.mCollector.setColor([0, 0, 0, 0]);  // No tinting
+    this.mCollector.getXform().setPosition(15, 60);
+    this.mCollector.getXform().setSize(3, 3);
     
     // create the hero object in blue
-    this.mHero = new Renderable(gEngine.DefaultResources.getConstColorShader());
+    this.mHero = new Renderable();
     this.mHero.setColor([0, 0, 1, 1]);
     this.mHero.getXform().setPosition(20, 60);
     this.mHero.getXform().setSize(2, 3);
@@ -62,9 +85,10 @@ MyGame.prototype.draw = function() {
     // set up the view projection
     this.mCamera.setupViewProjection();
     
-    // draw all the squares
-    this.mSupport.draw(this.mCamera.getVPMatrix());
+    // draw evertything
+    this.mPortal.draw(this.mCamera.getVPMatrix());
     this.mHero.draw(this.mCamera.getVPMatrix());
+    this.mCollector.draw(this.mCamera.getVPMatrix());
 };
 
 // update function, updates the application state
@@ -90,4 +114,12 @@ MyGame.prototype.update = function () {
             gEngine.GameLoop.stop();
         }
     }
+    
+    // continously change texture tinting
+    var c = this.mPortal.getColor();
+    var ca = c[3] + deltaX;
+    if (ca > 1) {
+        ca = 0;
+    }
+    c[3] = ca;
 };
