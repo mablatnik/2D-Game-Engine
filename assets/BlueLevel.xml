@@ -6,8 +6,22 @@
           BgColor="0 0 1 1.0"
           />
     
-    <!-- Squares Rotation is in degree -->
+    <!-- Previous Build: Squares Rotation is in degre
     <Square PosX="20" PosY="60" Width="5" Height="5" Rotation="30" Color="1 1 1 1" />
     <Square PosX="20" PosY="60" Width="2" Height="3" Rotation="0" Color="1 0 0 1" />
+    -->
+    
+    <!-- The red rectangle -->
+    <Square PosX="20" PosY="60" Width="2" Height="3" Rotation="0" Color="1 0 0 1" />
+    
+    <!-- Texture Square -->
+    <TextureSquare PosX="15" PosY="60" Width="3" Height="3" Rotation="-5" 
+        Color="1 0 0 0.3"
+        Texture="assets/minion_portal.jpg"/>
+    
+    <TextureSquare PosX="25" PosY="60" Width="3" Height="3" Rotation="5"
+        Color="0 0 0 0"
+        Texture="assets/minion_collector.jpg"/>
+        <!-- without tinting, alpha should be 0 -->
     
 </MyGameLevel>
