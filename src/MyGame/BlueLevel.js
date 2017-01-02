@@ -7,6 +7,11 @@ function BlueLevel() {
     
     // scene file name
     this.kSceneFile = "assets/BlueLevel.xml";
+    
+    // textures: (jpg does not support transparency)
+    this.kPortal = "assets/minion_portal.jpg";
+    this.kCollector = "assets/minion_collector.jpg";
+    
     // all squares, the renderable objects
     this.mSqSet = [];
     
@@ -23,6 +28,10 @@ BlueLevel.prototype.loadScene = function () {
     // load audio
     gEngine.AudioClips.loadAudio(this.kBgClip);
     gEngine.AudioClips.loadAudio(this.kCue);
+    
+    // load the textures
+    gEngine.Textures.loadTexture(this.kPortal);
+    gEngine.Textures.loadTexture(this.kCollector);
 };
 
 BlueLevel.prototype.unloadScene = function () {
@@ -33,6 +42,8 @@ BlueLevel.prototype.unloadScene = function () {
     gEngine.TextFileLoader.unloadTextFile(this.kSceneFile);
     gEngine.AudioClips.unloadAudio(this.kBgClip);
     gEngine.AudioClips.unloadAudio(this.kCue);
+    gEngine.Textures.unloadTextures(this.kPortal);
+    gEngine.Textures.unloadTextures(this.kCollector);
     
     // load the next level
     var nextLevel = new MyGame();  
@@ -45,8 +56,9 @@ BlueLevel.prototype.initialize = function () {
     // parse the camera
     this.mCamera = sceneParser.parseCamera();
 
-    // parse all the squares
+    // parse all the squares and textureSquares
     sceneParser.parseSquares(this.mSqSet);
+    sceneParser.parseTextureSquares(this.mSqSet);
     
     // start background music
     gEngine.AudioClips.playBackgroundAudio(this.kBgClip);
@@ -88,4 +100,12 @@ BlueLevel.prototype.update = function () {
             gEngine.GameLoop.stop();
         }
     }
+    
+    // continuously change texture tinting
+    var c = this.mSqSet[1].getColor();
+    var ca = c[3] + deltaX;
+    if (ca > 1) {
+        ca = 0;
+    }
+    c[3] = ca;
 };
