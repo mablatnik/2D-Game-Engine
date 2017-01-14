@@ -15,5 +15,9 @@ TextureRenderable.prototype.draw = function (vpMatrix) {
     Renderable.prototype.draw.call(this, vpMatrix);
 };
 
-TextureRenderable.prototype.getTexture = function () {return this.mTexture; };
-TextureRenderable.prototype.setTexture = function (t) { this.mTexture = t; };
+TextureRenderable.prototype.getTexture = function () {
+    return this.mTexture;
+};
+TextureRenderable.prototype.setTexture = function (t) {
+    this.mTexture = t;
+};

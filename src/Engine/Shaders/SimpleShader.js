@@ -7,7 +7,7 @@ function SimpleShader(vertexShaderPath, fragmentShaderPath) {
     this.mPixelColor = null;
     this.mModelTransform = null;
     this.mViewProjTransform = null;
-    
+
     var gl = gEngine.Core.getGL();
     // start of constructor code
     var vertexShader = this._compileShader(vertexShaderPath, gl.VERTEX_SHADER);
@@ -25,19 +25,19 @@ function SimpleShader(vertexShaderPath, fragmentShaderPath) {
     // get a reference to the aSquareVertexPosition attribute
     this.mShaderVertexPositionAttribute = gl.getAttribLocation(
         this.mCompiledShader, "aSquareVertexPosition");
-    
+
     // activate vertex buffer loaded in Engine.Core
     gl.bindBuffer(gl.ARRAY_BUFFER, gEngine.VertexBuffer.getGLVertexRef());
     /*
-    describes the characteristics of the vertex position attribute
-    3: each vertex element is a 3-float
-    gl.FLOAT: data is FLOAT
-    false: if the content is normalized vectors
-    0: number of bytes to skip between elements
-    0: offsets to the first element
-    */
+     describes the characteristics of the vertex position attribute
+     3: each vertex element is a 3-float
+     gl.FLOAT: data is FLOAT
+     false: if the content is normalized vectors
+     0: number of bytes to skip between elements
+     0: offsets to the first element
+     */
     gl.vertexAttribPointer(this.mShaderVertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
-    
+
     // get a reference to the uniform variables
     this.mPixelColor = gl.getUniformLocation(this.mCompiledShader, "uPixelColor");
     this.mModelTransform = gl.getUniformLocation(this.mCompiledShader, "uModelTransform");
@@ -45,7 +45,9 @@ function SimpleShader(vertexShaderPath, fragmentShaderPath) {
 }
 
 // access the compiled shader
-SimpleShader.prototype.getShader = function() {return this.mCompiledShader;};
+SimpleShader.prototype.getShader = function () {
+    return this.mCompiledShader;
+};
 
 // activate shader for drawing
 SimpleShader.prototype.activateShader = function (pixelColor, vpMatrix) {
@@ -57,13 +59,13 @@ SimpleShader.prototype.activateShader = function (pixelColor, vpMatrix) {
 };
 
 // loads model transforms for each object
-SimpleShader.prototype.loadObjectTransform = function(modelTransform) {
+SimpleShader.prototype.loadObjectTransform = function (modelTransform) {
     var gl = gEngine.Core.getGL();
     gl.uniformMatrix4fv(this.mModelTransform, false, modelTransform);
 };
 
 // performs loading and compiling functionality
-SimpleShader.prototype._compileShader = function(filePath, shaderType) {
+SimpleShader.prototype._compileShader = function (filePath, shaderType) {
     var gl = gEngine.Core.getGL();
     var shaderSource = null, compiledShader = null;
     // access the shader textfile
@@ -73,14 +75,14 @@ SimpleShader.prototype._compileShader = function(filePath, shaderType) {
         alert("WARNING: Loading of:" + filePath + " Failed!");
         return null;
     }
-    
+
     // create the shader based on shader type
     compiledShader = gl.createShader(shaderType);
     // compile the shader
     gl.shaderSource(compiledShader, shaderSource);
     gl.compileShader(compiledShader);
     // check for errors and log info
-    if(!gl.getShaderParameter(compiledShader, gl.COMPILE_STATUS)){
+    if (!gl.getShaderParameter(compiledShader, gl.COMPILE_STATUS)) {
         alert("A shader compiling error occurred:" + gl.getShaderInfoLog(compiledShader));
     }
     return compiledShader;

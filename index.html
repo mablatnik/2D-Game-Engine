@@ -1,44 +1,44 @@
 <!DOCTYPE html>
-    <head>
-        <title>2D Game Engine</title>
-        <link rel="shortcut icon" href="">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body onload="
+<head>
+    <title>2D Game Engine</title>
+    <link rel="shortcut icon" href="">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body onload="
         var myGame = new MyGame();
         gEngine.Core.initializeEngineCore('GLCanvas', myGame);
             ">
-        <!-- External Library -->
-        <script type="text/javascript" src="src/lib/gl-matrix.js"></script>
-        
-        <!-- Engine -->
-            <!-- Engine Core -->
-            <script type="text/javascript" src="src/Engine/Core/Engine_Core.js"></script>
-            <script type="text/javascript" src="src/Engine/Core/Engine_VertexBuffer.js"></script>
-            <script type="text/javascript" src="src/Engine/Core/Engine_GameLoop.js"></script>
-            <script type="text/javascript" src="src/Engine/Core/Engine_Input.js"></script>
-                <!-- Engine Resources -->
-                <script type="text/javascript" src="src/Engine/Core/Resources/Engine_ResourceMap.js"></script>
-                <script type="text/javascript" src="src/Engine/Core/Resources/Engine_TextFileLoader.js"></script>
-                <script type="text/javascript" src="src/Engine/Core/Resources/Engine_DefaultResources.js"></script>
-                <script type="text/javascript" src="src/Engine/Core/Resources/Engine_AudioClips.js"></script>
-        <script type="text/javascript" src="src/Engine/Shaders/SimpleShader.js"></script>
-        <script type="text/javascript" src="src/Engine/Shaders/TextureShader.js"></script>
-        <script type="text/javascript" src="src/Engine/Renderables/Renderable.js"></script>
-        <script type="text/javascript" src="src/Engine/Transform.js"></script>
-        <script type="text/javascript" src="src/Engine/Camera.js"></script>
-        <script type="text/javascript" src="src/Engine/Scene.js"></script>
-        
-        <!-- Client game code -->
-        <script type="text/javascript" src="src/MyGame/MyGame.js"></script>
-        <script type="text/javascript" src="src/MyGame/BlueLevel.js"></script>
-            <!-- Util -->
-            <script type="text/javascript" src="src/MyGame/Util/SceneFileParser.js"></script>
-        
-        <!-- Create HTML5 canvas -->
-        <canvas id="GLCanvas" width="640" height="480">
-            Your browser does not support HTML5 canvas.
-        </canvas>
-        
-    </body>
+<!-- External Library -->
+<script type="text/javascript" src="src/lib/gl-matrix.js"></script>
+
+<!-- Engine -->
+<!-- Engine Core -->
+<script type="text/javascript" src="src/Engine/Core/Engine_Core.js"></script>
+<script type="text/javascript" src="src/Engine/Core/Engine_VertexBuffer.js"></script>
+<script type="text/javascript" src="src/Engine/Core/Engine_GameLoop.js"></script>
+<script type="text/javascript" src="src/Engine/Core/Engine_Input.js"></script>
+<!-- Engine Resources -->
+<script type="text/javascript" src="src/Engine/Core/Resources/Engine_ResourceMap.js"></script>
+<script type="text/javascript" src="src/Engine/Core/Resources/Engine_TextFileLoader.js"></script>
+<script type="text/javascript" src="src/Engine/Core/Resources/Engine_DefaultResources.js"></script>
+<script type="text/javascript" src="src/Engine/Core/Resources/Engine_AudioClips.js"></script>
+<script type="text/javascript" src="src/Engine/Shaders/SimpleShader.js"></script>
+<script type="text/javascript" src="src/Engine/Shaders/TextureShader.js"></script>
+<script type="text/javascript" src="src/Engine/Renderables/Renderable.js"></script>
+<script type="text/javascript" src="src/Engine/Transform.js"></script>
+<script type="text/javascript" src="src/Engine/Camera.js"></script>
+<script type="text/javascript" src="src/Engine/Scene.js"></script>
+
+<!-- Client game code -->
+<script type="text/javascript" src="src/MyGame/MyGame.js"></script>
+<script type="text/javascript" src="src/MyGame/BlueLevel.js"></script>
+<!-- Util -->
+<script type="text/javascript" src="src/MyGame/Util/SceneFileParser.js"></script>
+
+<!-- Create HTML5 canvas -->
+<canvas id="GLCanvas" width="640" height="480">
+    Your browser does not support HTML5 canvas.
+</canvas>
+
+</body>

@@ -1,6 +1,6 @@
 "use strict";
 
-var gEngine = gEngine || { };
+var gEngine = gEngine || {};
 
 gEngine.Input = (function () {
     // Key code constants
@@ -20,48 +20,50 @@ gEngine.Input = (function () {
         Two: 50,
         Three: 51,
         Four: 52,
-        Five : 53,
-        Six : 54,
-        Seven : 55,
-        Eight : 56,
-        Nine : 57,
+        Five: 53,
+        Six: 54,
+        Seven: 55,
+        Eight: 56,
+        Nine: 57,
 
         // Alphabets
-        A : 65,
-        D : 68,
-        E : 69,
-        F : 70,
-        G : 71,
-        I : 73,
-        J : 74,
-        K : 75,
-        L : 76,
-        R : 82,
-        S : 83,
-        W : 87,
+        A: 65,
+        D: 68,
+        E: 69,
+        F: 70,
+        G: 71,
+        I: 73,
+        J: 74,
+        K: 75,
+        L: 76,
+        R: 82,
+        S: 83,
+        W: 87,
 
         LastKeyCode: 222
     };
-    
+
     // previous key state
     var mKeyPreviousState = [];
-    
+
     // pressed keys
     var mIsKeyPressed = [];
-    
+
     // click events
     var mIsKeyClicked = [];
-    
+
     // event service functions
     var _onKeyDown = function (event) {
-        mIsKeyPressed[event.keyCode] = true; };
-    
+        mIsKeyPressed[event.keyCode] = true;
+    };
+
     var _onKeyUp = function (event) {
-        mIsKeyPressed[event.keyCode] = false; };
-    
+        mIsKeyPressed[event.keyCode] = false;
+    };
+
     var initialize = function () {
         var i;
-        for(i=0; i < kKeys.kLastKeyCode; i++) {
+        for (i = 0; i < kKeys.kLastKeyCode; i++) {
             mIsKeyPressed[i] = false;
             mKeyPreviousState[i] = false;
             mIsKeyClicked[i] = false;
@@ -70,7 +72,7 @@ gEngine.Input = (function () {
         window.addEventListener('keyup', _onKeyUp);
         window.addEventListener('keydown', _onKeyDown);
     };
-    
+
     var update = function () {
         var i;
         for (i = 0; i < kKeys.LastKeyCode; i++) {
@@ -78,15 +80,16 @@ gEngine.Input = (function () {
             mKeyPreviousState[i] = mIsKeyPressed[i];
         }
     };
-    
+
     // function for game engine programmer to test is key is pressed down
     var isKeyPressed = function (keyCode) {
-        return mIsKeyPressed[keyCode]; };
-    
-    var isKeyClicked = function (keyCode) {
-        return(mIsKeyClicked[keyCode]);
+        return mIsKeyPressed[keyCode];
     };
-    
+
+    var isKeyClicked = function (keyCode) {
+        return (mIsKeyClicked[keyCode]);
+    };
+
     var mPublic = {
         initialize: initialize,
         update: update,

@@ -2,22 +2,39 @@
 
 function Transform() {
     // translation operator
-    this.mPosition = vec2.fromValues(0,0);
+    this.mPosition = vec2.fromValues(0, 0);
     // scaling operator
-    this.mScale = vec2.fromValues(1,1);
+    this.mScale = vec2.fromValues(1, 1);
     // rotation in radians
     this.mRotationInRad = 0.0;
 }
 
 // position getters and setters
-Transform.prototype.setPosition = function (xPos, yPos) { this.setXPos(xPos); this.setYPos(yPos); };
-Transform.prototype.getPosition = function () { return this.mPosition; };
-Transform.prototype.getXPos = function () { return this.mPosition[0]; };
-Transform.prototype.setXPos = function (xPos) { this.mPosition[0] = xPos; };
-Transform.prototype.incXPosBy = function (delta) { this.mPosition[0] += delta; };
-Transform.prototype.getYPos = function () { return this.mPosition[1]; };
-Transform.prototype.setYPos = function (yPos) { this.mPosition[1] = yPos; };
-Transform.prototype.incYPosBy = function (delta) { this.mPosition[1] += delta; };
+Transform.prototype.setPosition = function (xPos, yPos) {
+    this.setXPos(xPos);
+    this.setYPos(yPos);
+};
+Transform.prototype.getPosition = function () {
+    return this.mPosition;
+};
+Transform.prototype.getXPos = function () {
+    return this.mPosition[0];
+};
+Transform.prototype.setXPos = function (xPos) {
+    this.mPosition[0] = xPos;
+};
+Transform.prototype.incXPosBy = function (delta) {
+    this.mPosition[0] += delta;
+};
+Transform.prototype.getYPos = function () {
+    return this.mPosition[1];
+};
+Transform.prototype.setYPos = function (yPos) {
+    this.mPosition[1] = yPos;
+};
+Transform.prototype.incYPosBy = function (delta) {
+    this.mPosition[1] += delta;
+};
 
 // size setters and getters
 Transform.prototype.setSize = function (width, height) {
@@ -25,18 +42,32 @@ Transform.prototype.setSize = function (width, height) {
     this.setHeight(height);
 };
 
-Transform.prototype.getSize = function () { return this.mScale; };
+Transform.prototype.getSize = function () {
+    return this.mScale;
+};
 Transform.prototype.incSizeBy = function (delta) {
     this.incWidthBy(delta);
     this.incHeightBy(delta);
 };
 
-Transform.prototype.getWidth = function () { return this.mScale[0]; };
-Transform.prototype.setWidth = function (width) { this.mScale[0] = width; };
-Transform.prototype.incWidthBy = function (delta) { this.mScale[0] += delta; };
-Transform.prototype.getHeight = function () { return this.mScale[1]; };
-Transform.prototype.setHeight = function (height) { this.mScale[1] = height; };
-Transform.prototype.incHeightBy = function (delta) { this.mScale[1] += delta; };
+Transform.prototype.getWidth = function () {
+    return this.mScale[0];
+};
+Transform.prototype.setWidth = function (width) {
+    this.mScale[0] = width;
+};
+Transform.prototype.incWidthBy = function (delta) {
+    this.mScale[0] += delta;
+};
+Transform.prototype.getHeight = function () {
+    return this.mScale[1];
+};
+Transform.prototype.setHeight = function (height) {
+    this.mScale[1] = height;
+};
+Transform.prototype.incHeightBy = function (delta) {
+    this.mScale[1] += delta;
+};
 
 // rotation getters and setters
 Transform.prototype.setRotationInRad = function (rotationInRadians) {
@@ -55,10 +86,14 @@ Transform.prototype.incRotationByDegree = function (deltaDegree) {
 Transform.prototype.incRotationByRad = function (deltaRad) {
     this.setRotationInRad(this.mRotationInRad + deltaRad);
 };
-Transform.prototype.getRotationInRad = function () {  return this.mRotationInRad; };
-Transform.prototype.getRotationInDegree = function () { return this.mRotationInRad * 180.0 / Math.PI; };
+Transform.prototype.getRotationInRad = function () {
+    return this.mRotationInRad;
+};
+Transform.prototype.getRotationInDegree = function () {
+    return this.mRotationInRad * 180.0 / Math.PI;
+};
 
-Transform.prototype.getXform = function() {
+Transform.prototype.getXform = function () {
     // create blank identity matrix
     var matrix = mat4.create();
     // compute translation: z is zero for 2D game

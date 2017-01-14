@@ -1,11 +1,4 @@
-/*
- * File: SceneFile_Parse.js 
- */
-/*jslint node: true, vars: true */
-/*global gEngine: false, console: false, Camera: false, vec2: false, Renderable: false, TextureRenderable: false */
-/* find out more about jslint: http://www.jslint.com/help.html */
-
-"use strict";  // Operate in Strict mode such that variables must be declared before used!
+"use strict";
 
 function SceneFileParser(sceneFilePath) {
     this.mSceneXml = gEngine.ResourceMap.retrieveAsset(sceneFilePath);
@@ -37,7 +30,7 @@ SceneFileParser.prototype.parseCamera = function () {
         vec2.fromValues(cx, cy),  // position of the camera
         w,                        // width of camera
         viewport                  // viewport (orgX, orgY, width, height)
-        );
+    );
     cam.setBackgroundColor(bgColor);
     return cam;
 };
